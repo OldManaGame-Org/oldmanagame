@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Old Mana Deckbuilder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header / Navigation -->
+<header>
+  <div id="nav">
+    <img src="assets/images/Icon.png" alt="OMG Logo" class="logo" />
+
+    <!-- Hamburger Toggle für Mobile -->
+    <div class="hamburger-menu" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+      <!-- MOBILE SOCIAL ICONS -->
+      <div class="social-icons mobile-only">
+        <img src="assets/images/insta.png" alt="Instagram" />
+        <img src="assets/images/x-logo.png" alt="X" />
+      </div>
+
+      <!-- Menülinks -->
+      <a href="#">News</a>
+      <a href="#">Game Info</a>
+      <a href="#">Waitlist</a>
+      <a href="#">Library</a>
+    </div>
+
+    <!-- DESKTOP SOCIAL ICONS -->
+    <div class="profile desktop-only">
+      <img src="assets/images/insta.png" alt="Instagram" />
+      <img src="assets/images/x-logo.png" alt="X" />
+    </div>
+
+<div class="user-dropdown-container" id="userDropdownContainer">
+  <img src="assets/icons/indiana89_city_guard_stylized_medieval_fantasy_--ar_11_--v_6.1_c0113019-0abf-4298-9084-e0fd70ae8cc1 Kopie.png" id="userIcon" alt="User Icon" class="user-icon" onclick="toggleUserMenu()" />
+  <div class="user-dropdown hidden" id="userDropdown">
+    <a href="account.html">👤 Mein Account</a>
+    <div onclick="logout()">🚪 Logout</div>
+  </div>
+</div>
+  </div>
+
+  <div class="banner">
+  <img src="assets/images/indiana89_libraray_stylized_--ar_21_--v_6.1_837f1438-d59f-41eb-ab88-7d27f3f73045.jpg" alt="Banner Image" />
+</div>
+</header>
+
+
+<!-- Login Seite -->
+
+
+<div id="login-overlay" class="account-overlay">
+  <div class="account-box">
+    <h2 class="account-title">Login</h2>
+    <input type="email" id="email" placeholder="E-Mail" class="account-input" />
+    <input type="password" id="password" placeholder="Password" class="account-input" />
+    <button class="account-button" onclick="handleLogin()">Login</button>
+    <p class="account-switch">
+      No Account yet?
+      <span onclick="showRegister()">Register</span>
+    </p>
+  </div>
+</div>
+
+
+<!-- REGISTRIERUNG -->
+<div id="register-overlay" class="account-overlay hidden">
+  <div class="account-box">
+    <h2 class="account-title">Register</h2>
+    
+    <input type="text" id="reg-username" placeholder="User Name" class="account-input" />
+    <input type="email" id="reg-email" placeholder="E-Mail" class="account-input" />
+    <input type="password" id="reg-password" placeholder="Password" class="account-input" />
+    <input type="password" id="reg-password-confirm" placeholder="Confirm Password" class="account-input" />
+
+    <!-- Datenschutz & Marketing -->
+    <label class="account-checkbox">
+      <input type="checkbox" id="checkbox-privacy" />
+      <span>I accept the <a href="/datenschutz" target="_blank">privacy terms</a>.</span>
+    </label>
+
+    <label class="account-checkbox">
+      <input type="checkbox" id="checkbox-marketing" />
+      <span>I want to get informed about news and updates.</span>
+    </label>
+
+    <button class="account-button" onclick="handleRegister()">Register</button>
+
+    <p class="account-switch">
+      Already registered? <span onclick="showLogin()">Login</span>
+    </p>
+  </div>
+</div>
+
+<!-- Account Verwaltung-->
+
+
+
+<!-- Filterbar -->
+<div id="filterbar-sticky-wrapper">
+  <div id="filter-bar">
+    <div class="class-buttons">
+      <!-- Archetype Button -->
+      <button id="archetype-button" class="class-btn" data-class="">
+        <img id="archetype-icon" src="assets/icons/placeholder.png" alt="Class" />
+      </button>
+
+      <!-- Unbound Button -->
+      <button class="class-btn" data-class="Unbound" title="Unbound">
+        <img src="assets/icons/Social Logo.png" alt="Unbound" />
+      </button>
+    </div>
+
+    <!-- Suche -->
+    <input type="text" id="search-input" placeholder="Suche..." class="search-input" />
+
+    <!-- Filter öffnen Button -->
+    <button id="toggle-filter-panel" class="filter-btn">
+  <img src="assets/icons/filter_light.png" alt="Filter" />
+</button>
+            <!-- Mana Buttons nur für Desktop -->
+<div id="mana-buttons-desktop" class="mana-buttons desktop-only">
+  <button class="mana-btn"><span>0</span><img src="assets/icons/mana.png" alt="Mana 0" /></button>
+  <button class="mana-btn"><span>1</span><img src="assets/icons/mana.png" alt="Mana 1" /></button>
+  <button class="mana-btn"><span>2</span><img src="assets/icons/mana.png" alt="Mana 2" /></button>
+  <button class="mana-btn"><span>3</span><img src="assets/icons/mana.png" alt="Mana 3" /></button>
+  <button class="mana-btn"><span>4</span><img src="assets/icons/mana.png" alt="Mana 4" /></button>
+  <button class="mana-btn"><span>5</span><img src="assets/icons/mana.png" alt="Mana 5" /></button>
+  <button class="mana-btn"><span>6</span><img src="assets/icons/mana.png" alt="Mana 6" /></button>
+  <button class="mana-btn"><span>7</span><img src="assets/icons/mana.png" alt="Mana 7" /></button>
+  <button class="mana-btn"><span>8</span><img src="assets/icons/mana.png" alt="Mana 8" /></button>
+  <button class="mana-btn"><span>9</span><img src="assets/icons/mana.png" alt="Mana 9" /></button>
+  <button class="mana-btn"><span>10</span><img src="assets/icons/mana.png" alt="Mana 10" /></button>
+</div>
+<button id="change-archetype-btn" class="archetype-btn">↺ Archetype</button>
+  </div>
+</div>
+
+<div id="mobile-filter-sticky-wrapper">
+<!-- Ausklappbarer Filterbereich -->
+<div id="mobile-filter-panel" class="hidden">
+  <!-- Mana-Filter -->
+<div id="mana-buttons">
+  <button class="mana-btn"><span>0</span><img src="assets/icons/mana.png" alt="Mana 0" /></button>
+  <button class="mana-btn"><span>1</span><img src="assets/icons/mana.png" alt="Mana 1" /></button>
+  <button class="mana-btn"><span>2</span><img src="assets/icons/mana.png" alt="Mana 2" /></button>
+  <button class="mana-btn"><span>3</span><img src="assets/icons/mana.png" alt="Mana 3" /></button>
+  <button class="mana-btn"><span>4</span><img src="assets/icons/mana.png" alt="Mana 4" /></button>
+  <button class="mana-btn"><span>5</span><img src="assets/icons/mana.png" alt="Mana 5" /></button>
+  <button class="mana-btn"><span>6</span><img src="assets/icons/mana.png" alt="Mana 6" /></button>
+  <button class="mana-btn"><span>7</span><img src="assets/icons/mana.png" alt="Mana 7" /></button>
+  <button class="mana-btn"><span>8</span><img src="assets/icons/mana.png" alt="Mana 8" /></button>
+  <button class="mana-btn"><span>9</span><img src="assets/icons/mana.png" alt="Mana 9" /></button>
+  <button class="mana-btn"><span>10</span><img src="assets/icons/mana.png" alt="Mana 10" /></button>
+</div>
+
+  <!-- Weitere Filter -->
+  <div class="dropdown-filters">
+    <select id="filter-type">
+      <option value="">Type</option>
+      <option value="Ability">Ability</option>
+      <option value="Minion">Minion</option>
+      <option value="Weapon">Weapon</option>
+      <option value="Armor">Armor</option>
+    </select>
+
+    <select id="filter-subtype">
+      <option value="">Subtype</option>
+      <option value="Spell">Spell</option>
+      <option value="Beast">Beast</option>
+      <option value="Undead">Undead</option>
+      <option value="Elemental">Elemental</option>
+    </select>
+
+    <select id="filter-race">
+      <option value="">Race</option>
+      <option value="Elf">Elf</option>
+      <option value="Orc">Orc</option>
+      <option value="Human">Human</option>
+      <option value="Demon">Demon</option>
+    </select>
+
+    <select id="filter-class">
+      <option value="">Class</option>
+      <option value="Warrior">Warrior</option>
+      <option value="Mage">Mage</option>
+      <option value="Priest">Priest</option>
+    </select>
+
+    <select id="filter-atk">
+      <option value="">ATK</option>
+      <option value="1">1 ATK</option>
+      <option value="2">2 ATK</option>
+      <option value="3">3 ATK</option>
+      <option value="4">4 ATK</option>
+      <option value="5">5 ATK</option>
+      <option value="6">6 ATK</option>
+      <option value="7">7 ATK</option>
+      <option value="8">8 ATK</option>
+      <option value="9">9 ATK</option>
+      <option value="10+">10+ ATK</option>
+    </select>
+
+    <select id="filter-health">
+      <option value="">Health</option>
+      <option value="1">1 HP</option>
+      <option value="2">2 HP</option>
+      <option value="3">3 HP</option>
+      <option value="4">4 HP</option>
+      <option value="5">5 HP</option>
+      <option value="6">6 HP</option>
+      <option value="7">7 HP</option>
+      <option value="8">8 HP</option>
+      <option value="9">9 HP</option>
+      <option value="10+">10+ HP</option>
+    </select>
+
+    <select id="filter-effect">
+      <option value="">Effect</option>
+      <option value="damage">Damage</option>
+      <option value="heal">Heal</option>
+      <option value="block">Block</option>
+      <option value="draw">Draw</option>
+    </select>
+
+    <select id="filter-rarity">
+      <option value="">Rarity</option>
+      <option value="Common">Common</option>
+      <option value="Rare">Rare</option>
+      <option value="Epic">Epic</option>
+      <option value="Legendary">Legendary</option>
+    </select>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Main Content -->
+<main>
+    
+<div id="mobile-deck-button">
+  <img id="deck-icon" src="assets/icons/Social Logo.png" alt="Deck Icon" />
+  <span id="deck-counter">0 / 50</span>
+</div>
+
+<!-- Slideout Deck Panel -->
+<aside id="mobile-current-deck">
+  <div class="slideout-header">
+    <h2>Current Deck</h2>
+
+    <button id="open-mana-chart-mobile" class="mana-chart-btn">
+      <img src="assets/icons/Mana.png" alt="Mana Chart" />
+    </button>
+
+    <button id="open-my-decks-mobile" class="my-decks-btn">
+      <img src="assets/icons/Nature.png" alt="Meine Decks" />
+    </button>
+
+    <button id="close-slideout">✖</button>
+  </div>
+
+
+<div id="mana-chart-slideout-mobile" class="mana-chart-slideout-mobile">
+  <div class="slideout-inner">
+    <div class="mana-chart-background">
+      <canvas id="manaChartCanvasMobile"></canvas>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ⬇️ HIERHER verschoben: -->
+  <div id="my-decks-slideout-mobile" class="slideout-mobile">
+    <div class="slideout-inner">
+      <h3>My Decks</h3>
+      <div id="saved-decks-container-mobile"></div>
+    </div>
+  </div>
+
+  <div id="mobile-deck-scroll-wrapper">
+    <div id="mobile-deck-content">
+      <!-- Karten per JS rendern-->
+    </div>
+  </div>
+
+  <div class="deck-actions mobile-only">
+    <button id="save-deck-btn-mobile">Save Deck</button>
+    <button id="reset-deck-btn-mobile">New Deck</button>
+  </div>
+</aside>
+
+  <!-- Kartengrid -->
+<div id="main-layout">
+      <div class="card-grid-wrapper">
+  <section id="card-grid" class="card-grid-container">
+    <!-- Karten per JS laden -->
+  </section>
+</div>
+
+          <!-- Current Deck -->
+<div id="current-deck-sticky-wrapper">
+  <aside id="current-deck">
+      <div class="deck-top"></div>
+      <div class="deck-middle"></div>
+      <div class="deck-bottom"></div>
+    <h2></h2>
+    <button id="open-mana-chart" class="mana-chart-btn">
+      <img src="assets/icons/Mana.png" alt="Mana Chart" />
+    </button>
+        <div id="mana-chart-slideout">
+      <div class="slideout-inner">
+        <h3></h3>
+        <canvas id="manaChartCanvas" width="300" height="200"></canvas>
+      </div>
+    </div>
+
+<!--  Counter Desktop-Deck  -->
+<div class="deck-counter-wrapper">
+  <img id="deck-archetype-icon" src="" alt="Archetype" />
+  <div id="deck-counter">0 / 50</div>
+</div>
+<div id="deck-content">
+      <!-- Karten hier -->
+</div>
+
+    <!-- Button -->
+    <div class="deck-actions">
+      <button id="save-deck-btn"> Save Deck</button>
+      <button id="reset-deck-btn"> New Deck</button>
+      <div id="my-decks-slideout">
+  <div class="slideout-inner">
+    <h3>My Decks</h3>
+    <div id="saved-decks-container"></div>
+  </div>
+</div>
+    </div>
+  </aside>
+</div>
+</div>
+
+</main>
+
+
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+  <!-- Archetype Overlay -->
+   
+<div id="archetype-overlay">
+  <div class="archetype-grid">
+
+    <div class="archetype-option" data-archetype="Sorcery">
+      <div class="archetype-row">
+        <div class="archetype-main">
+          <div class="archetype-icon-wrapper">
+            <img src="assets/icons/Wisdom.png" alt="Sorcery" />
+          </div>
+          <h3>Sorcery</h3>
+        </div>
+        <button class="info-toggle" onclick="toggleInfo(event, this)">ℹ️</button>
+      </div>
+      <div class="archetype-info">
+        <p>Sorcery decks are masters of arcane manipulation. They rely heavily on spells, counterplay, and control effects to dominate the board without brute strength.</p>
+      </div>
+    </div>
+
+    <div class="archetype-option" data-archetype="War">
+      <div class="archetype-row">
+        <div class="archetype-main">
+          <div class="archetype-icon-wrapper">
+            <img src="assets/icons/Honor.png" alt="War" />
+          </div>
+          <h3>War</h3>
+        </div>
+        <button class="info-toggle" onclick="toggleInfo(event, this)">ℹ️</button>
+      </div>
+      <div class="archetype-info">
+        <p>War decks embody raw strength and battlefield control. They center on heavy weapons, armor stacking, and powerful frontline units that demand attention.</p>
+      </div>
+    </div>
+
+    <div class="archetype-option" data-archetype="Faith">
+      <div class="archetype-row">
+        <div class="archetype-main">
+          <div class="archetype-icon-wrapper">
+            <img src="assets/icons/Faith.png" alt="Faith" />
+          </div>
+          <h3>Faith</h3>
+        </div>
+        <button class="info-toggle" onclick="toggleInfo(event, this)">ℹ️</button>
+      </div>
+      <div class="archetype-info">
+        <p>Faith decks revolve around protection, healing, and divine retaliation. They emphasize board stability, blessings, and resilient units that outlast the opponent.</p>
+      </div>
+    </div>
+
+    <div class="archetype-option" data-archetype="Outlaw">
+      <div class="archetype-row">
+        <div class="archetype-main">
+          <div class="archetype-icon-wrapper">
+            <img src="assets/icons/Sin.png" alt="Outlaw" />
+          </div>
+          <h3>Outlaw</h3>
+        </div>
+        <button class="info-toggle" onclick="toggleInfo(event, this)">ℹ️</button>
+      </div>
+      <div class="archetype-info">
+        <p>Outlaw decks are wild, unpredictable, and built around risk. They use discard mechanics, explosive burst damage, and chaotic combo chains to push the game to its limits.</p>
+      </div>
+    </div>
+
+    <div class="archetype-option" data-archetype="Nature">
+      <div class="archetype-row">
+        <div class="archetype-main">
+          <div class="archetype-icon-wrapper">
+            <img src="assets/icons/Nature.png" alt="Nature" />
+          </div>
+          <h3>Nature</h3>
+        </div>
+        <button class="info-toggle" onclick="toggleInfo(event, this)">ℹ️</button>
+      </div>
+      <div class="archetype-info">
+        <p>Nature decks focus on gradual board development and long-term advantage. They thrive through beast synergy, healing effects, and slow resource ramping.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="loading-overlay">
+  <div id="loading-bar">
+    <div id="loading-fill"></div>
+  </div>
+</div>
+<div id="deck-hover-popup" class="deck-hover-popup">
+  <img id="hover-popup-img" alt="Karten-Vorschau" />
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mein Account</title>
+  <link rel="stylesheet" href="account.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div id="nav">
+      <img src="assets/images/Icon.png" alt="OMG Logo" class="logo" />
+
+      <div class="hamburger-menu" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+
+      <div class="nav-links">
+        <div class="social-icons mobile-only">
+          <img src="assets/images/insta.png" alt="Instagram" />
+          <img src="assets/images/x-logo.png" alt="X" />
+        </div>
+        <a href="#">News</a>
+        <a href="#">Game Info</a>
+        <a href="#">Waitlist</a>
+        <a href="#">Library</a>
+      </div>
+
+      <div class="profile desktop-only">
+        <img src="assets/images/insta.png" alt="Instagram" />
+        <img src="assets/images/x-logo.png" alt="X" />
+      </div>
+
+      <div class="user-dropdown-container" id="userDropdownContainer">
+        <img src="assets/icons/indiana89_city_guard_stylized_medieval_fantasy_--ar_11_--v_6.1_c0113019-0abf-4298-9084-e0fd70ae8cc1 Kopie.png" id="userIcon" alt="User Icon" class="user-icon" onclick="toggleUserMenu()" />
+        <div class="user-dropdown hidden" id="userDropdown">
+          <a href="account.html">👤 My Account</a>
+          <div onclick="logout()">🚪 Logout</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+ <!-- ACCOUNT INHALT -->
+<main class="account-main">
+  <div class="account-box-container">
+
+    <!-- Box 1: Persönliche Daten -->
+    <div class="account-box box-account">
+      <h2 class="account-title account-title-account">👤 My Account</h2>
+
+      <!-- E-Mail -->
+      <div class="account-field">
+        <div class="field-row">
+          <div class="label-cell">E-Mail:</div>
+          <div class="value-cell">
+            <span id="acc-email">-</span>
+            <button class="edit-icon" onclick="toggleEdit('email')">✏️</button>
+          </div>
+        </div>
+        <div id="edit-email" class="edit-field hidden">
+          <input type="email" id="newEmail" class="account-input" placeholder="New E-Mail" />
+          <input type="email" id="confirmEmail" class="account-input" placeholder="Confirm new E-Mail" />
+        </div>
+      </div>
+
+      <!-- Benutzername -->
+      <div class="account-field">
+        <div class="field-row">
+          <div class="label-cell">User Name:</div>
+          <div class="value-cell">
+            <span id="acc-username">-</span>
+            <button class="edit-icon" onclick="toggleEdit('username')">✏️</button>
+          </div>
+        </div>
+        <div id="edit-username" class="edit-field hidden">
+          <input type="text" id="newUsername" class="account-input" placeholder="New User Name" />
+        </div>
+      </div>
+
+      <!-- Passwort -->
+      <div class="account-field">
+        <div class="field-row">
+          <div class="label-cell">Password:</div>
+          <div class="value-cell">
+            <span id="acc-password">••••••••</span>
+            <button class="edit-icon" onclick="toggleEdit('password')">✏️</button>
+          </div>
+        </div>
+        <div id="edit-password" class="edit-field hidden">
+          <div class="password-wrapper">
+            <input type="password" id="newPassword" class="account-input" placeholder="New Password" />
+            <button class="eye-button" onclick="togglePasswordVisibility('newPassword', this)">👁️</button>
+          </div>
+          <div class="password-wrapper">
+            <input type="password" id="confirmPassword" class="account-input" placeholder="Confirm new Password" />
+            <button class="eye-button" onclick="togglePasswordVisibility('confirmPassword', this)">👁️</button>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+      <button class="account-button account-button-account" onclick="updateAccount()">Safe Changes</button>
+    </div>
+
+    <!-- Box 2: Einstellungen -->
+    <div class="account-box box-settings">
+      <h2 class="account-title account-title-settings">⚙️ Settings</h2>
+
+      <label class="toggle-label">
+        <input type="checkbox" id="newsletterToggle" />
+        I want to be part of the journey and get informed about changes and updates.
+      </label>
+
+      <label class="toggle-label">
+        <input type="checkbox" id="privacyToggle" />
+        Change privacy settings.
+      </label>
+
+      <hr />
+      <button class="account-button account-button-settings" onclick="saveSettings()">Safe Settings</button>
+    </div>
+
+  </div>
+</main>
+
+  <script src="account.js"></script>
+  <script src="scripts/main.js"></script> 
+
+  <script>
+  function toggleUserMenu() {
+    const dropdown = document.getElementById('userDropdown');
+    dropdown.classList.toggle('hidden');
+  }
+
+  // Optional: Klick außerhalb schließt das Menü
+  window.addEventListener('click', function (e) {
+    const container = document.getElementById('userDropdownContainer');
+    const dropdown = document.getElementById('userDropdown');
+
+    if (!container.contains(e.target)) {
+      dropdown.classList.add('hidden');
+    }
+  });
+</script>
+</body>
+</html>

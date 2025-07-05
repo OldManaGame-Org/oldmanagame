@@ -1,0 +1,2097 @@
+/* ===== Grundlayout & Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #130a04;
+  color: #f0e8d2;
+  font-family: 'Morpheus', serif;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: relative; /* wichtig: NICHT fixed */
+  width: 100%;
+}
+
+#nav {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 50px;
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 100 !important;
+}
+
+.logo {
+  height: 45px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-right: 45%;
+  z-index: 1001;
+}
+
+.profile.desktop-only {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Mobile verstecken */
+.mobile-only {
+  display: none;
+}
+
+.nav-links a {
+  font-size: 22px;
+  color: #f0e8d2;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #d3af61;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.profile img {
+  height: 24px;
+  width: 24px;
+}
+
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  z-index: 0 !important;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* wichtig: Bild füllt Container */
+  object-position: 50% 50%;
+  transition: opacity 0.3s ease-out;
+  display: block;
+}
+
+/* Standard: Desktop zeigt Profile, Mobile zeigt nichts */
+.profile.desktop-only {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-icons.mobile-only {
+  display: none;
+}
+
+
+
+
+
+/* Login + User Icon */
+.user-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.user-icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.user-icon:hover {
+  transform: scale(1.1);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  min-width: 160px;
+  z-index: 10000;
+}
+
+/* Gemeinsames Styling für Links und Divs */
+.user-dropdown a,
+.user-dropdown div {
+  display: block;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #333;
+  text-decoration: none;
+  color: #fff;
+}
+
+.user-dropdown a:hover,
+.user-dropdown div:hover {
+  color: #c09443;
+}
+
+.user-dropdown a:last-child,
+.user-dropdown div:last-child {
+  border-bottom: none;
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+
+
+/* ===== Responsive Design für Mobile (bis 750px) ===== */
+@media (max-width: 750px) {
+
+  #nav {
+    position: fixed;
+    top: 0;
+    left: 5;
+    right: 0; /* wichtig: begrenzt die Breite */
+    width: 90%;
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100 !important;
+    box-sizing: border-box;
+  }
+
+  .logo {
+    display: block;
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .hamburger-menu {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: right;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 10000;
+  }
+
+  .hamburger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #f5f0e6;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    z-index: 10000;
+  }
+
+ .nav-links,
+  .profile {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 16px;
+    background: #1b130a;
+    border: 1px solid #d3af61;
+    border-radius: 8px;
+    padding: 12px 16px;
+    gap: 12px;
+    margin-right: 16px;
+  }
+
+  .nav-links a {
+    color: #f5f0e6;
+    text-decoration: none;
+    font-family: 'Morpheus', serif;
+    font-size: 16px;
+  }
+
+
+  .nav-links.show,
+  .profile.show {
+    position: absolute;
+    display: flex;
+    z-index: 1001 !important;
+  }
+    .profile.desktop-only {
+    display: none;
+  }
+
+  .social-icons.mobile-only {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    justify-content: flex-end;
+  }
+
+  .social-icons.mobile-only img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  .banner {
+    position: fixed;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0 !important;
+}
+
+
+  .hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+
+
+/* ===== Responsive Design für Tablet (bis 1200px) ===== */
+@media (max-width: 1200px) {
+
+    #nav {
+    position: fixed;
+    top: 0;
+    left: 5;
+    right: 0; /* wichtig: begrenzt die Breite */
+    width: 90%;
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    box-sizing: border-box;
+  }
+
+  .logo {
+    display: block;
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .hamburger-menu {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: right;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 10000;
+  }
+
+  .hamburger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #f5f0e6;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    z-index: 10000;
+  }
+
+ .nav-links,
+  .profile {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 16px;
+    background: #1b130a;
+    border: 1px solid #d3af61;
+    border-radius: 8px;
+    padding: 12px 16px;
+    gap: 12px;
+    margin-right: 16px;
+  }
+
+  .nav-links a {
+    color: #f5f0e6;
+    text-decoration: none;
+    font-family: 'Morpheus', serif;
+    font-size: 16px;
+    z-index: 10000;
+  }
+
+
+  .nav-links.show,
+  .profile.show {
+    position: absolute;
+    display: flex;
+    z-index: 1001 !important;
+  }
+    .profile.desktop-only {
+    display: none;
+  }
+
+  .social-icons.mobile-only {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    justify-content: flex-end;
+  }
+
+  .social-icons.mobile-only img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+
+  .hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+}
+
+/* Login Fenster */
+
+.account-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.95);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f0f0f0;
+}
+
+.hidden {
+  display: none;
+}
+
+.account-box {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 16px;
+  padding: 36px 28px;
+  width: 320px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.account-title {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+.account-input {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+}
+
+.account-input::placeholder {
+  color: #888;
+}
+
+.account-button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #2dd4bf, #3b82f6);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.account-button:hover {
+  transform: scale(1.03);
+}
+
+.account-switch {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 16px;
+  color: #aaa;
+}
+
+.account-switch span {
+  color: #2dd4bf;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.account-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: #ccc;
+  margin: 8px 0;
+}
+
+.account-checkbox input[type="checkbox"] {
+  margin-top: 3px;
+  transform: scale(1.2);
+}
+
+.account-checkbox a {
+  color: #2dd4bf;
+  text-decoration: underline;
+}
+.account-button:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #3b82f6, #2dd4bf);
+}
+
+
+
+
+
+
+/* ===== Filterbar ===== */
+
+
+#filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 9;
+   background-image: url('assets/images/stone_filterbar.png');
+  background-size: cover;   /* oder: contain / auto je nach Bildtyp */
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 40px;
+  height: 65px;
+  border-bottom: 0px solid #d3af61;
+}
+
+#filter-bar .filter-btn {
+  background: #1b130a00;
+  color: #d3af61;
+  border: 1px solid #d3af6177;
+  border-radius: 6px;
+  padding: 1px 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#filter-bar .filter-btn:hover {
+  background-color: #2a1e0f;
+  border-color: #f0c674;
+}
+
+.filter-btn img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+
+#filter-bar .archetype-btn {
+  background: #1b130a00;
+  color: #e5dbc5;
+  border: 1px solid #d3af6174;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#filter-bar .archetype-btn:hover {
+  background-color: #2a1e0f1c;
+  border-color: #f0c674;
+}
+
+button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+#filter-bar .search-input {
+  background: #1b130a00;
+  color: #f5f0e6;
+  border: 1px solid #d3af617f;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: 'Morpheus', serif;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+#filter-bar .search-input:hover {
+  background-color: #2a1e0f;
+  border-color: #f0c674;
+}
+
+#mana-buttons {
+  display: none;
+}
+
+.mana-btn {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  margin-top: 1%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.mana-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mana-btn span {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #d6d5d3;
+  font-size: 25px;
+  font-family: 'Morpheus', serif;
+  font-weight: bold;
+  text-shadow: 5px 6px 12px #363333;
+  pointer-events: none;
+}
+
+#filter-bar .mana-btn:hover {
+  transform: scale(1.15);
+}
+#toggle-filter-panel {
+  display: inline-block;
+}
+
+.class-btn {
+  all: unset;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  padding-left: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.class-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.class-btn:hover img {
+  transform: scale(1.15);
+}
+
+.class-btn.active img {
+  transform: scale(1.25);
+}
+
+#filterbar-sticky-wrapper {
+  margin-top: 280px; 
+  height: 60px;
+  position: relative;
+  z-index: 9;
+}
+
+#mobile-filter-sticky-wrapper {
+  margin-top: 0px;
+  height: auto;
+  display: block;
+  z-index: 8;
+}
+
+#mobile-filter-sticky-wrapper.sticky {
+  position: sticky;
+  top: 145px;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+
+#filter-bar.sticky {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  border-bottom: none;
+  z-index: 99;
+}
+
+
+
+
+
+
+/* ARCHETYPE BUTTON */
+
+#archetype-button {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+#archetype-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+#archetype-button:hover #archetype-icon {
+  transform: scale(1.15);
+}
+
+#archetype-button.active img {
+  transform: scale(1.25);
+}
+
+
+
+/* Mitteilung 20 Unbound unlocked */
+
+.announcement {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #f0e8d2;
+  padding: 16px 28px;
+  border-radius: 12px;
+  border: 1px solid #d3af61;
+  font-family: 'Morpheus', serif;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 9999;
+}
+
+.announcement.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+
+
+
+
+@media (max-width: 750px) {
+  #archetype-button {
+  margin-left: 10px;
+}
+  }
+
+
+
+/* ========== Mobile Filter Dropdown Styles ========== */
+
+#mobile-filter-panel {
+  position: absolute;
+  background: #1b130a;
+  padding: 10px;
+  display: none;
+  position: sticky;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+#mobile-filter-panel.show {
+  display: block;
+}
+
+#toggle-filter-panel {
+  display: block; /* Standard: nur für mobile sichtbar */
+}
+
+.dropdown-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  margin-left: 2%;
+}
+
+.dropdown-filters select {
+  padding: 6px;
+  font-family: 'Morpheus', serif;
+  font-size: 13px;
+  background: #1b130a;
+  color: #eee;
+  border: 1px solid #d3af61;
+  border-radius: 6px;
+}
+
+
+
+#filter-bar.sticky {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  border-bottom: none;
+  z-index: 99;
+}
+
+
+
+
+
+@media (max-width: 750px) {
+  .card-grid-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+    #filter-bar {
+    flex-wrap: wrap;
+    padding: 10px;
+    z-index: 10;
+  }
+
+  
+  #class-cards,
+  #neutral-cards {
+    display: none;
+  }
+    .desktop-only {
+    display: none !important;
+  }
+
+  #mana-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: 2%;
+}
+
+}
+
+
+/* Sichtbarkeit je nach Viewport */
+@media (max-width: 1249px) {
+  #toggle-filter-panel {
+    display: inline-block;
+  }
+
+  .filter-btn:not(#toggle-filter-panel) {
+    display: none;
+  }
+    .filter-btn {
+    display: none;
+  }
+}
+
+
+
+/* ===== Card Grid & Deck Section ===== */
+
+#main-layout {
+  display: flex;
+  gap: 40px;
+  margin-top: 70px;
+  padding: 40px;
+  max-width: 1270px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: flex-start;
+}
+.card-grid-wrapper {
+  width: 800px;
+  margin: 0;
+  padding-left: 0px;
+}
+
+.card-grid-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: start;
+}
+
+
+.card-grid-container .card {
+  background: #28201900;
+  border: 0px solid #d3af61;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  width: 192px;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+
+.card-grid-container .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+
+/* ===== Current Deck ===== */
+
+
+#current-deck-sticky-wrapper {
+  position: sticky;
+  top: 162px;
+  width: 350px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+}
+
+#current-deck {
+  width: 100%;
+  padding: 5px;
+  background-image: url("assets/images/rahmen_1080.png");
+  background-size:contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  color: #f5f0e6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 170px);
+  overflow: hidden;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: 49px;
+}
+
+
+
+#current-deck h2 {
+  display: none;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #d3af61;
+  text-align: center;
+}
+
+#deck-content {
+  flex: 1;
+  position: relative;
+  
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;
+  margin-top: -1%;
+}
+
+#deck-content::-webkit-scrollbar {
+  display: none;               /* Chrome, Safari */
+}
+
+.deck-card {
+  position: absolute;
+  margin-left: 12%;
+  margin-top: -3%;
+  width: 175px;
+  max-width: 180px;
+  height: auto;
+  transform: scale(1.0);
+  transform-origin: center;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  justify-content: center;
+}
+
+#deck-content img.deck-card {
+  position: absolute;
+  left: 0;
+  width: 256px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+  justify-items: center;
+}
+
+#current-deck.sticky {
+  position: fixed;
+  top: 160px;
+  right: 20px;
+  width: 350px;
+  z-index: 100;
+  background: #1b130a;
+  border: 0px solid #d3af61;
+  border-radius: 12px;
+  padding: 0px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.deck-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.deck-actions button {
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background-color: #3c2f1c;
+  color: #f0e5d8;
+  border: 1px solid #a98b5f;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.card.disabled {
+  opacity: 0.35;
+  filter: grayscale(70%);
+  pointer-events: none;
+}
+
+.deck-card {
+  user-select: none;         /* verhindert Textauswahl */
+  -webkit-user-drag: none;   /* verhindert Drag auf Mac */
+  pointer-events: auto;      /* Klicks erlauben */
+}
+
+
+.deck-actions button:hover {
+  background-color: #5a4225;
+}
+
+
+
+
+/* Wrapper: oben rechts positioniert */
+.deck-counter-wrapper {
+  position: absolute;
+  top: -15px;
+  right: -65px;
+  width: 60px;
+  height: 60px;
+  z-index: 1000;
+  overflow: visible;
+}
+
+/* Das Archetypen-Symbol */
+#deck-archetype-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 0px solid #caa75571;
+  background-color: #222;
+  box-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+
+/* Der Counter darüber */
+#deck-counter {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  font-size: 14px;
+  background-color: #222;
+  color: #f8e9c0;
+  padding: 2px 6px;
+  border-radius: 8px;
+  border: 0px solid #caa755;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+
+
+/* Deck Hover Popup */
+
+#deck-hover-popup {
+  position: fixed;
+  display: none;
+  pointer-events: none;
+  z-index: 9999;
+  width: 240px;
+  height: auto;
+  transform: translateZ(0);
+  will-change: top, left;
+}
+
+#deck-hover-popup.visible {
+  display: block;
+}
+
+#deck-hover-popup img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  #deck-hover-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px;
+    border-radius: 8px;
+    z-index: 9999;
+    max-width: 90%;
+    max-height: 90%;
+    display: none;
+  }
+
+  #deck-hover-popup.visible {
+    display: block;
+  }
+
+  #deck-hover-popup img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+}
+
+
+
+/* Gespeicherte Decks DESKTOP */
+
+
+#my-decks-slideout {
+  position: absolute;
+  top: 0px;
+  left: 52px;
+  right: 3px;
+  width: 99%;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 100;
+  transition: height 0.4s ease;
+}
+
+#my-decks-slideout.open {
+  height: 580px; /* ⬅️ Hier die Anfangshöhe anpassen, z. B. 260–320px */
+  pointer-events: auto;
+}
+
+#my-decks-slideout .slideout-inner {
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/images/Features_Desktop.jpg'); /* 🔁 Pfad anpassen */
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 12px;
+  border-radius: 2px;
+  border: none;
+  position: relative;
+  z-index: 1000;
+  overflow-y: auto;
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;
+}
+
+#my-decks-slideout .slideout-inner h3 {
+  text-align: center;
+  width: 100%;
+  font-size: 22px;
+  color: #caa755a3; 
+  margin: 8px 0 12px; 
+}
+
+
+#my-decks-slideout .slideout-inner::-webkit-scrollbar {
+  display: none;                 /* Chrome, Safari */
+}
+
+
+/* Gespeicherte Decks im Slideout */
+
+
+.deck-entry {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid #d3af6147;
+}
+
+.deck-actions-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.deck-actions-row button {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 70px;
+}
+
+.deck-preview {
+  width: 60px;
+  height: auto;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+
+.deck-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.deck-title-input {
+  background: transparent;
+  border: none;
+  color: #eee;
+  font-size: 18px;
+  font-family: 'Morpheus', serif;
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+.deck-entry button {
+  background: #2a1e0f13;
+  color: #f5f0e6;
+  border: 1px solid #d3af6190;
+  padding: 4px 4px;
+  font-family: 'Morpheus', serif;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+  margin-left: 0;
+  flex: 1;
+  white-space: nowrap;
+}
+
+
+
+
+
+#saved-decks-container .deck-entry:hover {
+  background: none;
+}
+#deck-archetype-icon {
+  transition: transform 0.3s ease;
+}
+
+#deck-archetype-icon.rotate {
+  transform: rotate(-90deg);
+}
+
+/* Archetype-Farben Current Deck */
+
+
+
+
+@media (max-width: 1200px) {
+  #current-deck.War,
+  #mobile-current-deck.War {
+    border: 2px solid #b04040;
+  }
+
+  #current-deck.Sorcery,
+  #mobile-current-deck.Sorcery {
+    border: 2px solid #4070b0;
+  }
+
+  #current-deck.Outlaw,
+  #mobile-current-deck.Outlaw {
+    border: 2px solid #c3923f;
+  }
+
+  #current-deck.Nature,
+  #mobile-current-deck.Nature {
+    border: 2px solid #5da465;
+  }
+
+  #current-deck.Precision,
+  #mobile-current-deck.Precision {
+    border: 2px solid #877bb7;
+  }
+
+  #current-deck.Faith,
+  #mobile-current-deck.Faith {
+    border: 2px solid #ccccff;
+  }
+
+  #current-deck.Occult,
+  #mobile-current-deck.Occult {
+    border: 2px solid #666666;
+  }
+
+  #current-deck.Unbound,
+  #mobile-current-deck.Unbound {
+    border: 2px solid #333333;
+  }
+}
+
+
+/* MEDIA */
+
+
+/* ===== Mobile (bis 750px) ===== */
+
+@media (max-width: 750px) {
+  .card-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 1200px) {
+  #main-layout {
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .card-grid-wrapper {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .card-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+
+
+  #current-deck-sticky-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+
+/* Mana Graph */
+
+/* Desktop */
+#current-deck .mana-chart-btn {
+  position: absolute;
+  top: -24px;
+  left: 20px;
+  z-index: 99999;
+  background: none;
+  color: #f5f0e6;
+  border: 0px solid #d3af6173;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.mana-chart-btn img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,0.4));
+}
+
+.mana-chart-btn:hover img {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+
+/* Mana-Chart Slideout: Desktop */
+#mana-chart-slideout {
+  position: absolute;
+  top: 0px;
+  left: 52px;
+  right: 3px;
+  width: 99%;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 100;
+  transition: height 0.4s ease;
+}
+
+#mana-chart-slideout.open {
+  height: 260px; /* oder wie viel du brauchst */
+  pointer-events: auto;
+}
+
+#mana-chart-slideout .slideout-inner {
+  width: 100%;
+  background-image: url('assets/images/blog_parchment_bg.jpg'); /* 🔁 Pfad anpassen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 12px;
+  border-radius: 2px;
+
+  /* Entfernt alte Styles */
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+
+  position: relative;
+  z-index: 1000;
+}
+
+
+/* Mobile */
+/* Mobile: Mana Chart Button */
+#mobile-current-deck .mana-chart-btn {
+  margin-left: auto;
+  margin-right: 30px;
+  background: none;
+  color: #f5f0e6;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Mobile: Slideout Wrapper */
+.mana-chart-slideout-mobile {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.mana-chart-slideout-mobile.open {
+  max-height: 260px; /* oder auto */
+}
+
+.mana-chart-slideout-mobile .slideout-inner {
+  padding: 10px;
+}
+
+.mana-chart-background {
+  background-image: url('assets/images/blog_parchment_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+#manaChartCanvasMobile {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: transparent;
+}
+
+
+
+
+
+/* ARCHETYPE OVERLAY */
+
+#archetype-overlay {
+  position: fixed;
+  inset: 0;
+    background-image: url("assets/images/Features_Desktop_edited.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 60px;
+  z-index: 2000;
+}
+
+.archetype-grid {
+  display: flex;
+  margin-top: 10%;
+  gap: 100px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 90%;
+}
+
+.archetype-option {
+  width: 185px;
+  height: auto;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: visible;
+}
+
+.archetype-icon-wrapper {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.archetype-icon-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.archetype-option:hover .archetype-icon-wrapper img {
+  transform: scale(1.15);
+}
+
+.archetype-info {
+  width: 100%;
+  margin-top: 10px;
+  padding: 0 4px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  height: auto;          /* neu */
+  overflow: visible;
+}
+
+.archetype-info h3 {
+  margin: 0;
+  font-size: 35px;
+  color: #f0c674;
+  opacity: 1;
+  transition: transform 0.3s ease;
+}
+
+.archetype-info p {
+  font-size: 18px;
+  line-height: 1.1;
+  text-align: left;
+  color: #eee;
+  margin: 6px;  
+  max-height: none;
+  overflow: visible; 0 0;
+  opacity: 0;
+  max-height: 0;
+}
+
+/* Effekt beim Hover */
+.archetype-option:hover .archetype-info p {
+  animation: fadeIn 0.8s ease-out forwards;
+  max-height: 200px;
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#archetype-overlay.slide-in {
+  animation: slideInFromTop 0.5s ease-out forwards;
+}
+
+#archetype-overlay.animate-in {
+  animation: slideInFromTop 0.5s ease-out forwards;
+}
+
+
+/* Leichter Slide-in mit Textfokus */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+  #archetype-overlay {
+    overflow-y: auto;
+    pointer-events: auto;
+    -webkit-overflow-scrolling: touch;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 60px 20px 20px;
+  }
+
+  .archetype-grid {
+    margin-top: 12%;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    align-items: stretch;
+  }
+
+  .archetype-option {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .archetype-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .archetype-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .archetype-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .archetype-icon-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .archetype-main h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #f0c674;
+  }
+
+  .info-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #f0c674;
+    padding: 4px 8px;
+    flex-shrink: 0;
+  }
+
+  .archetype-info {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #eee;
+    padding-left: 72px;
+    margin-top: 6px;
+  }
+
+  .archetype-option.active .archetype-info {
+    max-height: 400px;
+    opacity: 1;
+  }
+}
+
+
+ /* Fake LOAD */
+
+ #loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: none;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+#loading-bar {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 80%;
+  height: 20px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#loading-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(to right, #fff5b7, #d79b23);
+  transition: width 3s linear;
+}
+
+
+
+
+
+
+/* ## */
+
+
+
+
+
+
+
+/* ========== Mobile Deck ========== */
+
+#mobile-deck-button {
+  position: sticky;
+  top: 145px; 
+  right: 5%;
+  z-index: 99;
+  width: 54px;
+  height: 54px;
+  background-color: #1b130a;
+  border: 2px solid #d3af6126;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  margin-left: auto;
+  margin-right: 0;
+  display: none; /* Nur auf Mobilgeräten */
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#mobile-deck-button img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+#deck-counter {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  background: #d3af61;
+  color: #000;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Nur im Mobile View aktivieren */
+@media (max-width: 768px) {
+  #mobile-deck-button {
+    display: flex;
+  }
+}
+
+/* ========== Slideout Panel ========== */
+#mobile-current-deck {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 85%;
+  height: 100%;
+  color: #f5f0e6;
+  border-left: 2px solid #d3af61;
+  z-index: 999;
+  transition: right 0.4s ease;
+  display: flex;
+  flex-direction: column;
+
+  /* 🔽 Bild als Hintergrund */
+  background-image: url("assets/images/Features_Desktop.jpg"); /* Pfad anpassen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#mobile-current-deck.open {
+  right: 0;
+}
+
+.slideout-header {
+  flex-shrink: 0;
+  padding: 16px;
+  background-image: url('assets/images/stone_filterbar.png'); /* 🔁 Pfad anpassen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #f5f0e6; /* optional: Text lesbar halten */
+}
+
+/* Kartenbereich darf scrollen */
+#mobile-deck-scroll-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  max-height: calc(100vh - 140px);
+  scroll-behavior: smooth;
+}
+
+
+
+/* Header Slideout */
+
+.slideout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.slideout-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #d3af61;
+}
+
+#close-slideout {
+  all: unset;
+  cursor: pointer;
+  font-size: 30px;
+  color: #f5f0e6;
+}
+
+
+#mobile-deck-content {
+  position: relative;
+  width: 100%;
+  padding-top: 120px;
+  padding-bottom: 120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#mobile-deck-content .deck-card {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 12%;
+  width: 90%;
+  max-width: 260px;
+  height: auto;
+  transform: none;
+  object-fit: contain;
+  z-index: 1;
+}
+
+#mobile-deck-content .deck-card:not(:first-child) {
+  margin-top: 0px; 
+}
+
+#mobile-deck-content .deck-card:first-child {
+  margin-top: 0;
+}
+
+#mobile-deck-scroll-wrapper {
+  -ms-overflow-style: none;     /* IE und Edge */
+  scrollbar-width: none;        /* Firefox */
+}
+
+#mobile-deck-scroll-wrapper::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari, Opera */
+}
+
+
+
+/* My Decks öffnen/schließen */
+
+.my-decks-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #f0c674;
+  margin-left: 8px;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 22%;
+}
+
+.my-decks-btn img {
+  width: 50px;
+  height: 50px;
+  filter: brightness(1.1);
+}
+
+
+
+/* Slideout zum My Decks-Button */ 
+
+
+/* ===== Mobile My Decks Slideout (überarbeitet) ===== */
+#my-decks-slideout-mobile {
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: max-height 0.4s ease;
+  position: relative;
+  z-index: 100;
+}
+
+#my-decks-slideout-mobile.open {
+  max-height: 580px;
+  pointer-events: auto;
+}
+
+#my-decks-slideout-mobile .slideout-inner {
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/images/Features_Desktop.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  position: relative;
+  z-index: 1000;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+#my-decks-slideout-mobile .slideout-inner h3 {
+  text-align: center;
+  width: 100%;
+  font-size: 20px;
+  color: #caa755a3;
+  margin: 8px 0 12px;
+}
+
+#my-decks-slideout-mobile .slideout-inner::-webkit-scrollbar {
+  display: none;
+}
+
+#saved-decks-container-mobile .deck-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #d3af6147;
+  background: #2a1e0f48;
+  border-radius: 4px;
+}
+
+#saved-decks-container-mobile .deck-preview {
+  width: 50px;
+  height: auto;
+  border-radius: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+#saved-decks-container-mobile .deck-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+#saved-decks-container-mobile .deck-title-input {
+  background: transparent;
+  border: none;
+  color: #eee;
+  font-size: 16px;
+  font-family: 'Morpheus', serif;
+  margin-bottom: 4px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#saved-decks-container-mobile .deck-actions-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+#saved-decks-container-mobile .deck-actions-row button {
+  flex: 0 0 auto;
+  min-width: 60px;
+  background: #2a1e0f13;
+  color: #f5f0e6;
+  border: 1px solid #d3af6190;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: 'Morpheus', serif;
+  cursor: pointer;
+}
+
+#saved-decks-container-mobile .deck-preview {
+  width: 50px;
+  height: auto;
+  border-radius: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+#saved-decks-container-mobile .deck-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+#saved-decks-container-mobile .deck-title-input {
+  background: transparent;
+  border: none;
+  color: #eee;
+  font-size: 16px;
+  font-family: 'Morpheus', serif;
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+#saved-decks-container-mobile .deck-actions-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+#saved-decks-container-mobile .deck-actions-row button {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 60px;
+  background: #2a1e0f13;
+  color: #f5f0e6;
+  border: 1px solid #d3af6190;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: 'Morpheus', serif;
+  cursor: pointer;
+}
+
+/* Zeige das Ganze nur auf kleinen Screens */
+@media (max-width: 1200px) {
+  #mobile-deck-button {
+    display: flex;
+  }
+
+  #current-deck-sticky-wrapper {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  #mobile-current-deck {
+    display: none;
+  }
+}
+
+
+
+
+

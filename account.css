@@ -1,0 +1,202 @@
+/* ========================
+   GLOBAL: Account Main Styles
+======================== */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('assets/images/freepik__upload__98550.jpeg') !important;
+  background-color: none;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: sans-serif;
+  color: #ffffff !important;
+}
+
+.account-main {
+  margin-top: 120px;
+  padding: 40px 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.account-box-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.account-box {
+  text-align: left;
+  flex: 1 1 45%;
+  background: rgba(0, 0, 0, 0) !important;
+  border-radius: 12px;
+  padding: 40px;
+  min-width: 320px;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.account-input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  background: none;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #f0e8d2;
+  font-size: 16px;
+}
+
+.account-button {
+  padding: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  color: rgb(81, 77, 77) !important;
+  background: linear-gradient(to right, #e9e8b3, #e1c53c) !important;
+}
+
+.account-button:hover {
+  background: linear-gradient(to right, #e1c53c, #e9e8b3) !important;
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+
+/* ========================
+   BOX: Mein Account (Links)
+======================== */
+.box-account .account-title-account {
+  font-size: 26px;
+  color: #2d291d;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.box-account .account-button-account {
+  width: 100%;
+  max-width: 220px;
+  margin-top: 20px;
+}
+
+/* Felder */
+.box-account .account-field {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.box-account .field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.box-account .label-cell {
+  width: 140px;
+  font-weight: bold;
+}
+
+.box-account .value-cell {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 250px;
+}
+
+.box-account .edit-field {
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.box-account .edit-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 12px;
+  color: #2dd4bf;
+  transition: transform 0.2s;
+}
+
+.box-account .edit-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Passwortfeld mit Sichtbarkeitstoggle */
+.box-account .password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.box-account .eye-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #aaa;
+}
+
+.box-account .eye-button:hover {
+  color: #2dd4bf;
+}
+
+
+
+
+
+/* ========================
+   BOX: Einstellungen (Rechts)
+======================== */
+.box-settings .account-title-settings {
+  font-size: 26px;
+  color: #2d291d;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.box-settings .account-button-settings {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 15%;
+  background: linear-gradient(to right, #d8cd69, #f6be3b);
+}
+
+.box-settings .account-button-settings:hover {
+  background: linear-gradient(to right, #3b82f6, #2dd4bf);
+}
+
+/* Toggle Checkboxen */
+.box-settings .toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.box-settings .toggle-label input[type="checkbox"] {
+  transform: scale(1.3);
+  accent-color: #2dd4bf;
+}
