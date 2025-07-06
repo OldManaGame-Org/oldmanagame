@@ -2,7 +2,7 @@
 // Supabase Client
 const supabaseUrl = 'https://duzgjnjivzbcyhecltui.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1emdqbmppdnpiY3loZWNsdHVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3ODgyNzgsImV4cCI6MjA2NzM2NDI3OH0.vwkSSBiufzea9PQ_sN2r0ET4xWQqmE8F54VTnBgpTsc';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 // Registrierung mit Prüfungen
 async function handleRegister() {
@@ -21,7 +21,7 @@ async function handleRegister() {
     return;
   }
 
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabaseClient.auth.signUp({ email, password });
   if (error) {
     alert("Fehler: " + error.message);
   } else {
@@ -35,17 +35,36 @@ async function handleLogin() {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
   if (error) {
     alert("Login fehlgeschlagen: " + error.message);
   } else {
+    // Optional: Hole direkt das zugehörige Profil aus 'profiles'
+    const { data: profileData, error: profileError } = await supabaseClient
+      .from('profiles')
+      .select('*')
+      .eq('id', data.user.id)
+      .single();
+
+    if (profileError) {
+      console.error("Fehler beim Laden des Profils:", profileError.message);
+    } else {
+      console.log("Profil geladen:", profileData);
+      // Optional: Username irgendwo anzeigen
+      const usernameDisplay = document.getElementById("user-username-display");
+      if (usernameDisplay && profileData.username) {
+        usernameDisplay.textContent = "Username: " + profileData.username;
+      }
+    }
+
     document.getElementById("login-overlay").style.display = "none";
     showArchetypeOverlay();
   }
 }
 
 // Session prüfen beim Laden (Supabase)
-supabase.auth.getSession().then(({ data: { session } }) => {
+supabaseClient.auth.getSession().then(({ data: { session } }) => {
   if (session) {
     document.getElementById("login-overlay").style.display = "none";
     showArchetypeOverlay();
@@ -1593,7 +1612,7 @@ function toggleUserMenu() {
 }
 
 async function showAccount() {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await supabaseClient.auth.getUser();
   if (user) {
     document.getElementById("user-email-display").innerText = "Eingeloggt als: " + user.email;
     document.getElementById("account-page").classList.remove("hidden");
@@ -1601,7 +1620,7 @@ async function showAccount() {
 }
 
 async function logout() {
-  await supabase.auth.signOut();
+  await supabaseClient.auth.signOut();
   location.reload();
 }
 
