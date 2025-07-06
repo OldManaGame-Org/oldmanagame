@@ -1,3 +1,5 @@
+
+
 // ==== Scroll-Effekte für Filterbar und Banner ====
 
 window.addEventListener("scroll", () => {
@@ -234,18 +236,18 @@ function addToDeck(card) {
   // Keine Unbound-Karten erlauben, wenn weniger als 20 Archetypen-Karten im Deck sind
   if (card.Archetype === "Unbound") {
     const archetypeCount = currentDeck.filter(c => c.Archetype !== "Unbound").length;
-    if (archetypeCount < 20) {
-      showAnnouncement("You need at least 20 Archetype cards before adding Unbound cards.");
+    if (archetypeCount < 25) {
+      showAnnouncement("You need at least 25 Archetype cards before adding Unbound cards.");
       return;
     }
   }
 
-  if (archetypeCards.length === 19 && card.Archetype !== "Unbound") {
-    showAnnouncement("You now have 20 archetype cards. Unbound cards are unlocked.");
+  if (archetypeCards.length === 24 && card.Archetype !== "Unbound") {
+    showAnnouncement("You now have 25 archetype cards. Unbound cards are unlocked.");
   }
 
-  if (unboundCards.length >= 30) {
-    alert("Not more than 30 unbound cards allowed.");
+  if (unboundCards.length >= 25) {
+    alert("Not more than 25 unbound cards allowed.");
     return;
   }
 
@@ -709,7 +711,7 @@ function checkUnboundLock() {
 
 function updateUnboundButtonState() {
   const archetypeCount = currentDeck.filter(c => c.Archetype !== "Unbound").length;
-  if (archetypeCount >= 20) {
+  if (archetypeCount >= 25) {
     unboundButton.disabled = false;
     unboundButton.classList.remove('disabled');
   } else {
