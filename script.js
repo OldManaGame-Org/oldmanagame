@@ -154,15 +154,10 @@ async function showAccount() {
 
 // Logout
 async function logout() {
-  await supabaseClient.auth.signOut();
-  location.reload();
-}
-
-async function logout() {
   localStorage.removeItem("loggedInUser");
   localStorage.removeItem("userData");
   await supabaseClient.auth.signOut();
-  window.location.href = "index.html";  // Optional: kannst auch Deckbuilder-Seite setzen
+  window.location.href = "index.html";
 }
 
 
