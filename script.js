@@ -4,14 +4,15 @@ const supabaseUrl = 'https://duzgjnjivzbcyhecltui.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1emdqbmppdnpiY3loZWNsdHVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3ODgyNzgsImV4cCI6MjA2NzM2NDI3OH0.vwkSSBiufzea9PQ_sN2r0ET4xWQqmE8F54VTnBgpTsc';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-// Registrierung mit Prüfungen & Username speichern
 async function handleRegister() {
   const email = document.getElementById("reg-email").value.trim();
   const password = document.getElementById("reg-password").value;
   const confirm = document.getElementById("reg-password-confirm").value;
   const username = document.getElementById("reg-username").value.trim();
   const acceptedPrivacy = document.getElementById("checkbox-privacy").checked;
+  const marketingConsent = document.getElementById("checkbox-marketing").checked;
 
+  // Prüfung: Pflichtfelder + Privacy
   if (!email || !password || !confirm || !username || !acceptedPrivacy) {
     alert("Bitte alle Felder ausfüllen & Datenschutz akzeptieren.");
     return;
@@ -32,20 +33,30 @@ async function handleRegister() {
   const userId = data?.user?.id;
 
   if (userId) {
+    // Username in profiles speichern
     const { error: profileError } = await supabaseClient
       .from('profiles')
-      .insert([
-        { id: userId, username: username }
-      ]);
+      .insert([{ id: userId, username: username }]);
 
     if (profileError) {
-      console.error("Fehler beim Speichern des Benutzernamens:", profileError.message);
-    } else {
-      alert("Registrierung erfolgreich! Bitte bestätige deine E-Mail.");
-      showLogin();
+      console.error("Fehler beim Speichern des Profils:", profileError.message);
     }
+
+    // Nur wenn Marketing-Checkbox gesetzt → in marketing_consent speichern
+    if (marketingConsent) {
+      const { error: marketingError } = await supabaseClient
+        .from('marketing_consent')
+        .insert([{ id: userId, email: email, username: username }]);
+
+      if (marketingError) {
+        console.error("Fehler beim Speichern der Marketing-Zustimmung:", marketingError.message);
+      }
+    }
+
+    alert("Registration complete! Please confirm your E-Mail.");
+    showLogin();
   } else {
-    alert("Registrierung fehlgeschlagen.");
+    alert("Registration failed.");
   }
 }
 
@@ -57,7 +68,7 @@ async function handleLogin() {
   const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
   if (error) {
-    alert("Login fehlgeschlagen: " + error.message);
+    alert("Login failed: " + error.message);
   } else {
     // Hole Profil-Daten
     const { data: profileData, error: profileError } = await supabaseClient
