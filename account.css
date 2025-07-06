@@ -200,3 +200,54 @@ body {
   transform: scale(1.3);
   accent-color: #2dd4bf;
 }
+
+
+
+
+
+/* FOOTER */
+
+.omg-footer {
+  background: url('assets/images/footer_background.jpg') repeat center center;
+  background-size: cover;
+  padding: 40px 20px 20px;
+  text-align: center;
+  color: #ccc;
+  font-family: 'Morpheus', serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.footer-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  width: 220px;
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #eee;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #d3af61;
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: #999;
+  line-height: 1.5;
+}

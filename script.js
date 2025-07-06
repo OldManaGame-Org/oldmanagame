@@ -1,4 +1,96 @@
 
+// Supabase Client
+const supabaseUrl = 'https://duzgjnjivzbcyhecltui.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1emdqbmppdnpiY3loZWNsdHVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3ODgyNzgsImV4cCI6MjA2NzM2NDI3OH0.vwkSSBiufzea9PQ_sN2r0ET4xWQqmE8F54VTnBgpTsc';
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+// Registrierung mit Prüfungen
+async function handleRegister() {
+  const email = document.getElementById("reg-email").value.trim();
+  const password = document.getElementById("reg-password").value;
+  const confirm = document.getElementById("reg-password-confirm").value;
+  const acceptedPrivacy = document.getElementById("checkbox-privacy").checked;
+
+  if (!email || !password || !confirm || !acceptedPrivacy) {
+    alert("Bitte alle Felder ausfüllen & Datenschutz akzeptieren.");
+    return;
+  }
+
+  if (password !== confirm) {
+    alert("Passwörter stimmen nicht überein.");
+    return;
+  }
+
+  const { error } = await supabase.auth.signUp({ email, password });
+  if (error) {
+    alert("Fehler: " + error.message);
+  } else {
+    alert("Bestätigungs-Mail wurde gesendet.");
+    showLogin();
+  }
+}
+
+// Login
+async function handleLogin() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    alert("Login fehlgeschlagen: " + error.message);
+  } else {
+    document.getElementById("login-overlay").style.display = "none";
+    showArchetypeOverlay();
+  }
+}
+
+// Session prüfen beim Laden (Supabase)
+supabase.auth.getSession().then(({ data: { session } }) => {
+  if (session) {
+    document.getElementById("login-overlay").style.display = "none";
+    showArchetypeOverlay();
+  } else {
+    document.getElementById("login-overlay").style.display = "block";
+  }
+});
+
+// Fenster wechseln
+function showRegister() {
+  document.getElementById("login-overlay").classList.add("hidden");
+  document.getElementById("register-overlay").classList.remove("hidden");
+}
+
+function showLogin() {
+  document.getElementById("register-overlay").classList.add("hidden");
+  document.getElementById("login-overlay").classList.remove("hidden");
+}
+
+
+
+// Account Bereich anzeigen
+async function showAccount() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) {
+    document.getElementById("user-email-display").innerText = "Eingeloggt als: " + user.email;
+    document.getElementById("account-page").classList.remove("hidden");
+  }
+}
+
+// Logout
+async function logout() {
+  await supabase.auth.signOut();
+  location.reload();
+}
+
+
+
+
+
+
+
+
+
+
 
 // ==== Scroll-Effekte für Filterbar und Banner ====
 
@@ -1484,113 +1576,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Click-hover für Mobile
 
 
 
 
-
-
-// Login  + Datenbank simuliert
-
-// Lokale "Datenbank" laden
-let users = JSON.parse(localStorage.getItem("fakeUsers")) || [];
-
-// Registrierung mit Prüfungen
-function handleRegister() {
-  const username = document.getElementById("reg-username").value.trim();
-  const email = document.getElementById("reg-email").value.trim();
-  const password = document.getElementById("reg-password").value;
-  const confirm = document.getElementById("reg-password-confirm").value;
-  const acceptedPrivacy = document.getElementById("checkbox-privacy").checked;
-  const marketingConsent = document.getElementById("checkbox-marketing").checked;
-
-  // Prüfung: Alle Felder ausgefüllt
-  if (!username || !email || !password || !confirm) {
-    alert("Bitte fülle alle Felder aus.");
-    return;
-  }
-
-  // Prüfung: Passwort = Bestätigung
-  if (password !== confirm) {
-    alert("Die Passwörter stimmen nicht überein.");
-    return;
-  }
-
-  // Prüfung: Datenschutzerklärung akzeptiert
-  if (!acceptedPrivacy) {
-    alert("Bitte akzeptiere die Datenschutzerklärung.");
-    return;
-  }
-
-  // Prüfung: E-Mail schon registriert?
-  if (users.some(u => u.email === email)) {
-    alert("Diese E-Mail ist bereits registriert.");
-    return;
-  }
-
-  // Speichern
-  users.push({ username, email, password, marketingConsent });
-  localStorage.setItem("fakeUsers", JSON.stringify(users));
-  alert("Registrierung erfolgreich!");
-  showLogin();
-}
-
-// Login bleibt wie bei dir
-function handleLogin() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const user = users.find(u => u.email === email && u.password === password);
-  if (user) {
-    localStorage.setItem("loggedInUser", email);
-    document.getElementById("login-overlay").style.display = "none";
-    showArchetypeOverlay(); // dein bestehendes Overlay starten
-  } else {
-    alert("Login fehlgeschlagen!");
-  }
-}
-
-// Fenster wechseln
-function showRegister() {
-  document.getElementById("login-overlay").classList.add("hidden");
-  document.getElementById("register-overlay").classList.remove("hidden");
-}
-
-function showLogin() {
-  document.getElementById("register-overlay").classList.add("hidden");
-  document.getElementById("login-overlay").classList.remove("hidden");
-}
-
-// Beim Laden prüfen, ob jemand eingeloggt ist
-window.addEventListener("DOMContentLoaded", () => {
-  const user = localStorage.getItem("loggedInUser");
-  if (!user) {
-    document.getElementById("login-overlay").classList.remove("hidden");
-    document.getElementById("register-overlay").classList.add("hidden");
-  } else {
-    document.getElementById("login-overlay").style.display = "none";
-    showArchetypeOverlay(); // direkt weiter
-  }
-});
-
-
-
-
-
-// Account Bereich
-
-function showAccount() {
-  const email = localStorage.getItem("loggedInUser");
-  if (email) {
-    document.getElementById("user-email-display").innerText = "Eingeloggt als: " + email;
-    document.getElementById("account-page").classList.remove("hidden");
-  }
-}
-
-function logout() {
-  localStorage.removeItem("loggedInUser");
-  location.reload(); // Seite neu laden, zurück zum Login
-}
 
 
 
@@ -1603,16 +1592,17 @@ function toggleUserMenu() {
   menu.classList.toggle("hidden");
 }
 
-function showAccount() {
-  document.getElementById("userDropdown").classList.add("hidden");
-  // Accountbereich anzeigen (z. B. Modal öffnen oder weiterleiten)
-  document.getElementById("account-page").classList.remove("hidden");
-  // Optional andere Bereiche ausblenden
+async function showAccount() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) {
+    document.getElementById("user-email-display").innerText = "Eingeloggt als: " + user.email;
+    document.getElementById("account-page").classList.remove("hidden");
+  }
 }
 
-function logout() {
-  localStorage.removeItem("loggedInUser");
-  location.reload(); // oder Redirect zur Login-Seite
+async function logout() {
+  await supabase.auth.signOut();
+  location.reload();
 }
 
 // Menü schließen, wenn außerhalb geklickt
@@ -1624,6 +1614,7 @@ document.addEventListener("click", function (event) {
     dropdown.classList.add("hidden");
   }
 });
+
 
 
 
