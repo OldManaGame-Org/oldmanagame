@@ -8,6 +8,7 @@
 
   <link rel="icon" type="image/png" href="assets/images/Icon.png">
   <link rel="apple-touch-icon" href="assets/images/Icon.png">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -105,7 +106,7 @@
       <span>I want to get informed about news and updates.</span>
     </label>
 
-    <button class="account-button" onclick="handleRegister()">Register</button>
+    <button id="register-button" class="account-button">Register</button>
 
     <p class="account-switch">
       Already registered? <span onclick="showLogin()">Login</span>
@@ -361,8 +362,6 @@
 
 </main>
 
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
