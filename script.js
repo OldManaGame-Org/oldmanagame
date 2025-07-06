@@ -1638,3 +1638,11 @@ document.addEventListener("click", function (event) {
 
 
 
+
+// Registrierung-Button EventListener (nach handleRegister-Definition)
+document.addEventListener("DOMContentLoaded", () => {
+  const registerBtn = document.getElementById("register-button");
+  if (registerBtn) {
+    registerBtn.addEventListener("click", handleRegister);
+  }
+});
