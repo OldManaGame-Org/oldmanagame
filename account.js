@@ -126,3 +126,14 @@ async function saveSettings() {
     alert('Einstellungen gespeichert.');
   }
 }
+
+
+
+// Logout Nav Icon
+
+async function logout() {
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("userData");
+  await supabaseClient.auth.signOut();
+  window.location.href = "index.html";  // Zurück zur Startseite oder Login
+}
