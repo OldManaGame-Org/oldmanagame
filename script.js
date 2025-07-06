@@ -88,7 +88,7 @@ function showLogin() {
 
 // Account Bereich anzeigen
 async function showAccount() {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await supabaseClient.auth.getUser();
   if (user) {
     document.getElementById("user-email-display").innerText = "Eingeloggt als: " + user.email;
     document.getElementById("account-page").classList.remove("hidden");
@@ -97,7 +97,7 @@ async function showAccount() {
 
 // Logout
 async function logout() {
-  await supabase.auth.signOut();
+  await supabaseClient.auth.signOut();
   location.reload();
 }
 
@@ -1609,19 +1609,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function toggleUserMenu() {
   const menu = document.getElementById("userDropdown");
   menu.classList.toggle("hidden");
-}
-
-async function showAccount() {
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (user) {
-    document.getElementById("user-email-display").innerText = "Eingeloggt als: " + user.email;
-    document.getElementById("account-page").classList.remove("hidden");
-  }
-}
-
-async function logout() {
-  await supabaseClient.auth.signOut();
-  location.reload();
 }
 
 // Menü schließen, wenn außerhalb geklickt
