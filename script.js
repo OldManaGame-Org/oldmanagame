@@ -59,7 +59,7 @@ async function handleLogin() {
   if (error) {
     alert("Login fehlgeschlagen: " + error.message);
   } else {
-    // Optional: Hole direkt das zugehörige Profil aus 'profiles'
+    // Hole Profil-Daten
     const { data: profileData, error: profileError } = await supabaseClient
       .from('profiles')
       .select('*')
@@ -70,11 +70,21 @@ async function handleLogin() {
       console.error("Fehler beim Laden des Profils:", profileError.message);
     } else {
       console.log("Profil geladen:", profileData);
-      // Optional: Username irgendwo anzeigen
+
+      // Username im DeckBuilder anzeigen (optional)
       const usernameDisplay = document.getElementById("user-username-display");
       if (usernameDisplay && profileData.username) {
         usernameDisplay.textContent = "Username: " + profileData.username;
       }
+
+      // 🟢 Speichern für Account.html:
+      const userData = {
+        id: data.user.id,
+        email: data.user.email,
+        username: profileData?.username || '',
+        privacy: profileData?.privacy || false
+      };
+      localStorage.setItem('userData', JSON.stringify(userData));
     }
 
     document.getElementById("login-overlay").style.display = "none";
@@ -82,13 +92,14 @@ async function handleLogin() {
   }
 }
 
+
 // Session prüfen beim Laden (Supabase)
 supabaseClient.auth.getSession().then(({ data: { session } }) => {
   if (session) {
     document.getElementById("login-overlay").style.display = "none";
     showArchetypeOverlay();
   } else {
-    document.getElementById("login-overlay").style.display = "block";
+    document.getElementById("login-overlay").style.display = "flex";
   }
 });
 
