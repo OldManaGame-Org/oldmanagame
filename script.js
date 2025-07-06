@@ -11,6 +11,7 @@ async function handleRegister() {
   const username = document.getElementById("reg-username").value.trim();
   const acceptedPrivacy = document.getElementById("checkbox-privacy").checked;
   const marketingConsent = document.getElementById("checkbox-marketing").checked;
+  console.log("Marketing consent: ", marketingConsent);
 
   // Prüfung: Pflichtfelder + Privacy
   if (!email || !password || !confirm || !username || !acceptedPrivacy) {
@@ -42,16 +43,18 @@ async function handleRegister() {
       console.error("Fehler beim Speichern des Profils:", profileError.message);
     }
 
-    // Nur wenn Marketing-Checkbox gesetzt → in marketing_consent speichern
-    if (marketingConsent) {
-      const { error: marketingError } = await supabaseClient
-        .from('marketing_consent')
-        .insert([{ id: userId, email: email, username: username }]);
+  // Nur wenn Marketing-Checkbox gesetzt → in marketing_consent speichern
+if (marketingConsent) {
+  const { error: marketingError } = await supabaseClient
+    .from('marketing_consent')
+    .insert([{ id: userId, email: email, username: username }]);
 
-      if (marketingError) {
-        console.error("Fehler beim Speichern der Marketing-Zustimmung:", marketingError.message);
-      }
-    }
+  if (marketingError) {
+    console.error("Fehler beim Speichern der Marketing-Zustimmung:", marketingError.message);
+  } else {
+    console.log("Marketing consent erfolgreich gespeichert.");
+  }
+}
 
     alert("Registration complete! Please confirm your E-Mail.");
     showLogin();
