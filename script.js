@@ -4,14 +4,15 @@ const supabaseUrl = 'https://duzgjnjivzbcyhecltui.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1emdqbmppdnpiY3loZWNsdHVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3ODgyNzgsImV4cCI6MjA2NzM2NDI3OH0.vwkSSBiufzea9PQ_sN2r0ET4xWQqmE8F54VTnBgpTsc';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-// Registrierung mit Prüfungen
+// Registrierung mit Prüfungen & Username speichern
 async function handleRegister() {
   const email = document.getElementById("reg-email").value.trim();
   const password = document.getElementById("reg-password").value;
   const confirm = document.getElementById("reg-password-confirm").value;
+  const username = document.getElementById("reg-username").value.trim();
   const acceptedPrivacy = document.getElementById("checkbox-privacy").checked;
 
-  if (!email || !password || !confirm || !acceptedPrivacy) {
+  if (!email || !password || !confirm || !username || !acceptedPrivacy) {
     alert("Bitte alle Felder ausfüllen & Datenschutz akzeptieren.");
     return;
   }
@@ -21,12 +22,30 @@ async function handleRegister() {
     return;
   }
 
-  const { error } = await supabaseClient.auth.signUp({ email, password });
+  const { data, error } = await supabaseClient.auth.signUp({ email, password });
+
   if (error) {
     alert("Fehler: " + error.message);
+    return;
+  }
+
+  const userId = data?.user?.id;
+
+  if (userId) {
+    const { error: profileError } = await supabaseClient
+      .from('profiles')
+      .insert([
+        { id: userId, username: username }
+      ]);
+
+    if (profileError) {
+      console.error("Fehler beim Speichern des Benutzernamens:", profileError.message);
+    } else {
+      alert("Registrierung erfolgreich! Bitte bestätige deine E-Mail.");
+      showLogin();
+    }
   } else {
-    alert("Bestätigungs-Mail wurde gesendet.");
-    showLogin();
+    alert("Registrierung fehlgeschlagen.");
   }
 }
 
@@ -88,10 +107,37 @@ function showLogin() {
 
 // Account Bereich anzeigen
 async function showAccount() {
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (user) {
-    document.getElementById("user-email-display").innerText = "Eingeloggt als: " + user.email;
-    document.getElementById("account-page").classList.remove("hidden");
+  const { data: { user }, error } = await supabaseClient.auth.getUser();
+  if (error || !user) {
+    console.error("Kein Benutzer gefunden:", error?.message);
+    return;
+  }
+
+  document.getElementById("user-email-display").innerText = "E-Mail: " + user.email;
+  document.getElementById("account-page").classList.remove("hidden");
+
+  const { data: profileData, error: profileError } = await supabaseClient
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single();
+
+  if (profileError) {
+    console.error("Fehler beim Laden des Profils:", profileError.message);
+    return;
+  }
+
+  // Username anzeigen
+  const usernameField = document.getElementById("user-username-display");
+  if (usernameField && profileData.username) {
+    usernameField.textContent = "Username: " + profileData.username;
+  }
+
+  // Optional: Privacy Einstellungen anzeigen (wenn gespeichert)
+  const privacyField = document.getElementById("user-privacy-display");
+  if (privacyField) {
+    const consent = profileData.marketing_consent ? "Yes" : "No";
+    privacyField.textContent = "Marketing Consent: " + consent;
   }
 }
 
