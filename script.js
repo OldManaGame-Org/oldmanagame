@@ -1199,41 +1199,54 @@ if (searchInput) {
 
 
 
-// Decks speichern (Desktop)
-
-function saveCurrentDeck() {
+// Decks speichern (Desktop) -- Supabase
+async function saveCurrentDeck() {
   const deckName = prompt("Please Name your Deck:");
-  if (!deckName) return;
+  if (!deckName || currentDeck.length === 0) return;
 
-  const newDeck = {
-    id: Date.now(),
-    name: deckName,
-    archetype: currentArchetype,
-    cards: currentDeck
-  };
+  const { data: { user }, error: sessionError } = await supabaseClient.auth.getUser();
+  if (sessionError || !user) {
+    alert("You must be logged in to save decks.");
+    return;
+  }
 
-  fetch('assets/data/decks.json')
-    .then(res => res.json())
-    .then(existingDecks => {
-      existingDecks.push(newDeck);
-      return fetch('assets/data/decks.json', {
-        method: 'POST', // 🛑 nur über Server möglich – siehe Hinweis unten
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(existingDecks, null, 2)
-      });
-    })
-    .then(() => {
-      alert("Deck gespeichert.");
-    })
-    .catch(err => {
-      console.error("Fehler beim Speichern:", err);
-    });
+  const { data: existingDecks, error: loadError } = await supabaseClient
+    .from('decks')
+    .select('*')
+    .eq('user_id', user.id);
+
+  if (loadError) {
+    console.error("Failed to load decks:", loadError.message);
+    return;
+  }
+
+  if (existingDecks.length >= 10) {
+    alert("You already have 10 decks saved. Please delete one first.");
+    return;
+  }
+
+  const { error: saveError } = await supabaseClient
+    .from('decks')
+    .insert([
+      {
+        user_id: user.id,
+        deck_name: deckName,
+        deck_data: currentDeck
+      }
+    ]);
+
+  if (saveError) {
+    console.error("Failed to save deck:", saveError.message);
+  } else {
+    alert("Deck saved successfully!");
+    loadSavedDecks();
+  }
 }
 
 
 // Slideout gespeicherte Decks (Desktop)
 
-// === Meine Decks SlideOut (wie ManaChart) ===
+// === My Decks SlideOut (wie ManaChart) ===
 
 const deckIcon = document.getElementById("deck-archetype-icon");
 const myDecksSlideout = document.getElementById("my-decks-slideout");
@@ -1252,46 +1265,51 @@ deckIcon.addEventListener("click", () => {
   }
 });
 
-function loadSavedDecks() {
+async function loadSavedDecks() {
   const container = document.getElementById("saved-decks-container");
   container.innerHTML = "";
 
-  const decks = JSON.parse(localStorage.getItem("savedDecks")) || [];
+  const { data: { user }, error: sessionError } = await supabaseClient.auth.getUser();
+  if (sessionError || !user) return;
 
-  if (decks.length === 0) {
+  const { data: decks, error } = await supabaseClient
+    .from('decks')
+    .select('*')
+    .eq('user_id', user.id);
+
+  if (error || !decks || decks.length === 0) {
     container.innerHTML = "<p>No saved decks yet.</p>";
     return;
   }
 
-  decks.forEach((deck, index) => {
+  decks.forEach((deck) => {
     const entry = document.createElement("div");
     entry.className = "deck-entry";
 
-    // Deck-Vorschaubild hinzufügen
     const preview = document.createElement("img");
     preview.className = "deck-preview";
-    preview.src = deck.cards[0]?.Image || "assets/cards/placeholder.png";
-    preview.alt = deck.name;
+    preview.src = deck.deck_data[0]?.Image || "assets/cards/placeholder.png";
+    preview.alt = deck.deck_name;
     entry.appendChild(preview);
 
-    // Deck-Info-Container
     const nameInput = document.createElement("input");
     nameInput.className = "deck-title-input";
-    nameInput.value = deck.name;
-    nameInput.addEventListener("change", () => {
-      deck.name = nameInput.value;
-      decks[index] = deck;
-      localStorage.setItem("savedDecks", JSON.stringify(decks));
+    nameInput.value = deck.deck_name;
+    nameInput.addEventListener("change", async () => {
+      const { error: updateError } = await supabaseClient
+        .from('decks')
+        .update({ deck_name: nameInput.value })
+        .eq('id', deck.id);
+      if (updateError) console.error("Failed to update deck name:", updateError.message);
     });
 
     const openBtn = document.createElement("button");
     openBtn.textContent = "Open";
     openBtn.addEventListener("click", () => {
-      currentDeck = deck.cards;
+      currentDeck = deck.deck_data;
       openedDeckId = deck.id;
       updateDeckDisplay();
       updateUnboundButtonState();
-      // Karten im Grid ausgrauen
       currentDeck.forEach(card => {
         const cardEl = document.querySelector(`.card[data-id="${card.ID}"]`);
         if (cardEl) {
@@ -1303,16 +1321,22 @@ function loadSavedDecks() {
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
-    deleteBtn.addEventListener("click", () => {
-      decks.splice(index, 1);
-      localStorage.setItem("savedDecks", JSON.stringify(decks));
-      loadSavedDecks(); // Liste neu laden
+    deleteBtn.addEventListener("click", async () => {
+      const { error: deleteError } = await supabaseClient
+        .from('decks')
+        .delete()
+        .eq('id', deck.id);
+      if (deleteError) {
+        console.error("Failed to delete deck:", deleteError.message);
+      } else {
+        loadSavedDecks();
+      }
     });
 
     const info = document.createElement("div");
     info.className = "deck-info";
     info.appendChild(nameInput);
-    // Create button group for open and delete buttons
+
     const buttonGroup = document.createElement("div");
     buttonGroup.style.display = "flex";
     buttonGroup.style.gap = "8px";
@@ -1505,7 +1529,6 @@ function loadSavedDecksMobile() {
 
 // Decks speichern (Mobile) + Slideout
 
-// === Mobile Slideout für gespeicherte Decks ===
 
 const mobileDecksBtn = document.getElementById("open-my-decks-mobile");
 const mobileDecksSlideout = document.getElementById("my-decks-slideout-mobile");
@@ -1588,6 +1611,8 @@ function loadSavedDecksMobile() {
     const entry = document.createElement("div");
     entry.className = "deck-entry";
 
+
+
     // 🟢 Deck-Vorschaubild hinzufügen (NEU)
     const preview = document.createElement("img");
     preview.className = "deck-preview";
@@ -1595,6 +1620,9 @@ function loadSavedDecksMobile() {
     preview.alt = deck.name;
     entry.appendChild(preview);
 
+    
+
+    // Deck Name
     const nameInput = document.createElement("input");
     nameInput.className = "deck-title-input";
     nameInput.value = deck.name;
@@ -1604,6 +1632,8 @@ function loadSavedDecksMobile() {
       localStorage.setItem("savedDecks", JSON.stringify(decks));
     });
 
+
+    // Button
     const openBtn = document.createElement("button");
     openBtn.textContent = "Open";
     openBtn.addEventListener("click", () => {
@@ -1619,6 +1649,9 @@ function loadSavedDecksMobile() {
         }
       });
     });
+
+
+    // Button
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
