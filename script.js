@@ -1215,6 +1215,25 @@ async function saveCurrentDeck() {
     return;
   }
 
+  // ➕ NEU: Bestehendes Deck aktualisieren
+  if (openedDeckId) {
+    const { error: updateError } = await supabaseClient
+      .from('decks')
+      .update({ deck_data: currentDeck })
+      .eq('id', openedDeckId);
+
+    if (updateError) {
+      console.error("Failed to update deck:", updateError.message);
+    } else {
+      showAnnouncement("Change saved.");
+      openedDeckId = null;
+      currentDeck = [];
+      updateDeckDisplay();
+      loadSavedDecks();
+    }
+    return;
+  }
+
   const { data: existingDecks, error: loadError } = await supabaseClient
     .from('decks')
     .select('*')
@@ -1244,6 +1263,8 @@ async function saveCurrentDeck() {
     console.error("Failed to save deck:", saveError.message);
   } else {
     alert("Deck saved successfully!");
+    currentDeck = [];
+    updateDeckDisplay();
     loadSavedDecks();
   }
 }
@@ -1305,6 +1326,14 @@ async function loadSavedDecks() {
           .update({ deck_name: nameInput.value })
           .eq('id', deck.id);
       });
+
+      currentDeck.forEach(card => {
+  const cardEl = document.querySelector(`.card[data-id="${card.ID}"]`);
+  if (cardEl) {
+    cardEl.classList.add("disabled");
+    cardEl.style.pointerEvents = "none";
+  }
+});
 
       const openBtn = document.createElement("button");
       openBtn.textContent = "Open";
