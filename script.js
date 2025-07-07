@@ -1225,10 +1225,18 @@ async function saveCurrentDeck() {
     if (updateError) {
       console.error("Failed to update deck:", updateError.message);
     } else {
-      showAnnouncement("Change saved.");
       openedDeckId = null;
       currentDeck = [];
       updateDeckDisplay();
+      // 🟢 Karten im Grid ausgrauen (nach Speichern)
+      currentDeck.forEach(card => {
+        const cardEl = document.querySelector(`.card[data-id="${card.ID}"]`);
+        if (cardEl) {
+          cardEl.classList.add("disabled");
+          cardEl.style.pointerEvents = "none";
+        }
+      });
+      showAnnouncement("Change saved.");
       loadSavedDecks();
     }
     return;
@@ -1339,8 +1347,18 @@ async function loadSavedDecks() {
       openBtn.textContent = "Open";
       openBtn.addEventListener("click", () => {
         currentDeck = deck.deck_data;
+        openedDeckId = deck.id;
         updateDeckDisplay();
         updateUnboundButtonState();
+
+        // 🟢 Karten im Grid ausgrauen (nach Laden)
+        currentDeck.forEach(card => {
+          const cardEl = document.querySelector(`.card[data-id="${card.ID}"]`);
+          if (cardEl) {
+            cardEl.classList.add("disabled");
+            cardEl.style.pointerEvents = "none";
+          }
+        });
       });
 
       const deleteBtn = document.createElement("button");
