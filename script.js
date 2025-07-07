@@ -1199,7 +1199,12 @@ if (searchInput) {
 
 
 
+
+
+
 // Decks speichern (Desktop) -- Supabase
+
+
 async function saveCurrentDeck() {
   const deckName = prompt("Please Name your Deck:");
   if (!deckName || currentDeck.length === 0) return;
@@ -1246,7 +1251,6 @@ async function saveCurrentDeck() {
 
 // Slideout gespeicherte Decks (Desktop)
 
-// === My Decks SlideOut (wie ManaChart) ===
 
 const deckIcon = document.getElementById("deck-archetype-icon");
 const myDecksSlideout = document.getElementById("my-decks-slideout");
@@ -1266,8 +1270,8 @@ deckIcon.addEventListener("click", () => {
 });
 
 async function loadSavedDecks() {
-  const container = document.getElementById("saved-decks-container");
-  container.innerHTML = "";
+  const containerDesktop = document.getElementById("saved-decks-container");
+  const containerMobile = document.getElementById("saved-decks-container-mobile");
 
   const { data: { user }, error: sessionError } = await supabaseClient.auth.getUser();
   if (sessionError || !user) return;
@@ -1277,74 +1281,60 @@ async function loadSavedDecks() {
     .select('*')
     .eq('user_id', user.id);
 
-  if (error || !decks || decks.length === 0) {
-    container.innerHTML = "<p>No saved decks yet.</p>";
-    return;
-  }
+  if (error || !decks) return;
 
-  decks.forEach((deck) => {
-    const entry = document.createElement("div");
-    entry.className = "deck-entry";
+  [containerDesktop, containerMobile].forEach(container => {
+    if (!container) return;
+    container.innerHTML = decks.length === 0 ? "<p>No saved decks yet.</p>" : "";
 
-    const preview = document.createElement("img");
-    preview.className = "deck-preview";
-    preview.src = deck.deck_data[0]?.Image || "assets/cards/placeholder.png";
-    preview.alt = deck.deck_name;
-    entry.appendChild(preview);
+    decks.forEach(deck => {
+      const entry = document.createElement("div");
+      entry.className = "deck-entry";
 
-    const nameInput = document.createElement("input");
-    nameInput.className = "deck-title-input";
-    nameInput.value = deck.deck_name;
-    nameInput.addEventListener("change", async () => {
-      const { error: updateError } = await supabaseClient
-        .from('decks')
-        .update({ deck_name: nameInput.value })
-        .eq('id', deck.id);
-      if (updateError) console.error("Failed to update deck name:", updateError.message);
-    });
+      const preview = document.createElement("img");
+      preview.className = "deck-preview";
+      preview.src = deck.deck_data[0]?.Image || "assets/cards/placeholder.png";
+      entry.appendChild(preview);
 
-    const openBtn = document.createElement("button");
-    openBtn.textContent = "Open";
-    openBtn.addEventListener("click", () => {
-      currentDeck = deck.deck_data;
-      openedDeckId = deck.id;
-      updateDeckDisplay();
-      updateUnboundButtonState();
-      currentDeck.forEach(card => {
-        const cardEl = document.querySelector(`.card[data-id="${card.ID}"]`);
-        if (cardEl) {
-          cardEl.classList.add("disabled");
-          cardEl.style.pointerEvents = "none";
-        }
+      const nameInput = document.createElement("input");
+      nameInput.className = "deck-title-input";
+      nameInput.value = deck.deck_name;
+      nameInput.addEventListener("change", async () => {
+        await supabaseClient
+          .from('decks')
+          .update({ deck_name: nameInput.value })
+          .eq('id', deck.id);
       });
-    });
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.addEventListener("click", async () => {
-      const { error: deleteError } = await supabaseClient
-        .from('decks')
-        .delete()
-        .eq('id', deck.id);
-      if (deleteError) {
-        console.error("Failed to delete deck:", deleteError.message);
-      } else {
+      const openBtn = document.createElement("button");
+      openBtn.textContent = "Open";
+      openBtn.addEventListener("click", () => {
+        currentDeck = deck.deck_data;
+        updateDeckDisplay();
+        updateUnboundButtonState();
+      });
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.addEventListener("click", async () => {
+        await supabaseClient.from('decks').delete().eq('id', deck.id);
         loadSavedDecks();
-      }
+      });
+
+      const info = document.createElement("div");
+      info.className = "deck-info";
+      info.appendChild(nameInput);
+
+      const buttonGroup = document.createElement("div");
+      buttonGroup.style.display = "flex";
+      buttonGroup.style.gap = "8px";
+      buttonGroup.appendChild(openBtn);
+      buttonGroup.appendChild(deleteBtn);
+
+      info.appendChild(buttonGroup);
+      entry.appendChild(info);
+      container.appendChild(entry);
     });
-
-    const info = document.createElement("div");
-    info.className = "deck-info";
-    info.appendChild(nameInput);
-
-    const buttonGroup = document.createElement("div");
-    buttonGroup.style.display = "flex";
-    buttonGroup.style.gap = "8px";
-    buttonGroup.appendChild(openBtn);
-    buttonGroup.appendChild(deleteBtn);
-    info.appendChild(buttonGroup);
-    entry.appendChild(info);
-    container.appendChild(entry);
   });
 }
 
@@ -1359,50 +1349,50 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  saveDeckBtn.addEventListener("click", () => {
-    let name = "";
-    const decks = JSON.parse(localStorage.getItem("savedDecks")) || [];
-    if (openedDeckId) {
-      const existing = decks.find(d => d.id === openedDeckId);
-      name = existing?.name || "";
+  saveDeckBtn.addEventListener("click", async () => {
+    const deckName = prompt("Please Name your Deck:");
+    if (!deckName || currentDeck.length === 0) return;
+
+    const { data: { user }, error: sessionError } = await supabaseClient.auth.getUser();
+    if (sessionError || !user) {
+      alert("You must be logged in to save decks.");
+      return;
+    }
+
+    const { data: existingDecks, error: loadError } = await supabaseClient
+      .from('decks')
+      .select('*')
+      .eq('user_id', user.id);
+
+    if (loadError) {
+      console.error("Failed to load decks:", loadError.message);
+      return;
+    }
+
+    // Limit: Max 10 Decks pro Benutzer
+    if (existingDecks.length >= 10) {
+      alert("You already have 10 decks saved. Please delete one first.");
+      return;
+    }
+
+    const { error: saveError } = await supabaseClient
+      .from('decks')
+      .insert([
+        {
+          user_id: user.id,
+          deck_name: deckName,
+          deck_data: currentDeck
+        }
+      ]);
+
+    if (saveError) {
+      console.error("Failed to save deck:", saveError.message);
     } else {
-      // 📝 Standard-Prompt für Deck-Namen (kann später durch eigenes Modal ersetzt werden)
-      name = window.prompt("Deck Name:");
-      if (!name || currentDeck.length === 0) return;
+      alert("Deck saved successfully!");
+      currentDeck = [];
+      updateDeckDisplay();
+      loadSavedDecks();
     }
-
-    if (openedDeckId) {
-      const index = decks.findIndex(d => d.id === openedDeckId);
-      if (index !== -1) {
-        decks[index] = {
-          id: openedDeckId,
-          name,
-          cards: [...currentDeck]
-        };
-        localStorage.setItem("savedDecks", JSON.stringify(decks));
-        showAnnouncement("Change saved.");
-        openedDeckId = null;
-        currentDeck = [];
-        updateDeckDisplay();
-        loadSavedDecks();
-        return;
-      }
-    }
-
-    if (currentDeck.length === 0) return;
-    const newDeck = {
-      id: Date.now(),
-      name,
-      cards: [...currentDeck]
-    };
-
-    decks.push(newDeck);
-    localStorage.setItem("savedDecks", JSON.stringify(decks));
-
-    console.log("Deck saved:", newDeck); // ✅ Debug
-    currentDeck = [];
-    updateDeckDisplay();
-    loadSavedDecks();
   });
 });
 
