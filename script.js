@@ -12,6 +12,7 @@ async function handleRegister() {
   const acceptedPrivacy = document.getElementById("checkbox-privacy").checked;
   const marketingConsent = document.getElementById("checkbox-marketing").checked;
   console.log("Marketing consent: ", marketingConsent);
+  console.log("Marketing Checkbox erkannt:", marketingConsent);
 
   // Prüfung: Pflichtfelder + Privacy
   if (!email || !password || !confirm || !username || !acceptedPrivacy) {
@@ -34,25 +35,37 @@ async function handleRegister() {
   const userId = data?.user?.id;
 
   if (userId) {
-    // Username in profiles speichern
+    // Prüfe, ob E-Mail schon in profiles existiert
+    const { data: existingProfiles, error: selectError } = await supabaseClient
+      .from('profiles')
+      .select('*')
+      .eq('email', email);
+
+    if (existingProfiles && existingProfiles.length > 0) {
+      alert("Diese E-Mail-Adresse ist bereits registriert.");
+      return;
+    }
+
+    // Username und E-Mail in profiles speichern
     const { error: profileError } = await supabaseClient
       .from('profiles')
-      .insert([{ id: userId, username: username }]);
+      .insert([{ id: userId, username: username, email: email }]);
 
     if (profileError) {
       console.error("Fehler beim Speichern des Profils:", profileError.message);
     }
 
-  // Nur wenn Marketing-Checkbox gesetzt → in marketing_consent speichern
+  
+// Nur wenn Marketing-Checkbox gesetzt → in marketing_consent speichern
 if (marketingConsent) {
   const { error: marketingError } = await supabaseClient
     .from('marketing_consent')
     .insert([{ id: userId, email: email, username: username }]);
 
   if (marketingError) {
-    console.error("Fehler beim Speichern der Marketing-Zustimmung:", marketingError.message);
+    console.error("❌ Fehler beim Speichern der Marketing-Zustimmung:", marketingError.message);
   } else {
-    console.log("Marketing consent erfolgreich gespeichert.");
+    console.log("✅ Marketing consent erfolgreich gespeichert:", email, username);
   }
 }
 
