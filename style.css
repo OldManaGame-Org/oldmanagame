@@ -858,12 +858,15 @@ button.disabled {
     display: none !important;
   }
 
-  #mana-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-left: 2%;
-  }
+#mana-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;      /* Zentriert die Buttons */
+  gap: 4px;
+  padding: 8px;
+  max-width: 100%;              /* Verhindert Überlauf */
+  box-sizing: border-box;       /* Verhindert zu große Breite */
+}
 
   #mana-buttons .img {
     width: 18px;
