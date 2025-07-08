@@ -51,84 +51,79 @@
 
  <!-- ACCOUNT INHALT -->
 <main class="account-main">
-  <div class="account-box-container">
+  <!-- Navigation Tabs -->
+  <div class="account-nav">
+    <button class="account-tab active" onclick="showTab('info')">Info</button>
+    <button class="account-tab" onclick="showTab('decks')">Decks</button>
+    <button class="account-tab" onclick="showTab('other')">Other</button>
+  </div>
 
-    <!-- Box 1: Persönliche Daten -->
-    <div class="account-box box-account">
-      <h2 class="account-title account-title-account">👤 My Account</h2>
-
-      <!-- E-Mail -->
-      <div class="account-field">
-        <div class="field-row">
-          <div class="label-cell">E-Mail:</div>
-          <div class="value-cell">
-            <span id="acc-email">-</span>
-            <button class="edit-icon" onclick="toggleEdit('email')">✏️</button>
-          </div>
-        </div>
-        <div id="edit-email" class="edit-field hidden">
-          <input type="email" id="newEmail" class="account-input" placeholder="New E-Mail" />
-          <input type="email" id="confirmEmail" class="account-input" placeholder="Confirm new E-Mail" />
-        </div>
-      </div>
-
-      <!-- Benutzername -->
-      <div class="account-field">
-        <div class="field-row">
-          <div class="label-cell">User Name:</div>
-          <div class="value-cell">
-            <span id="acc-username">-</span>
-            <button class="edit-icon" onclick="toggleEdit('username')">✏️</button>
-          </div>
-        </div>
-        <div id="edit-username" class="edit-field hidden">
-          <input type="text" id="newUsername" class="account-input" placeholder="New User Name" />
-        </div>
-      </div>
-
-      <!-- Passwort -->
-      <div class="account-field">
-        <div class="field-row">
-          <div class="label-cell">Password:</div>
-          <div class="value-cell">
-            <span id="acc-password">••••••••</span>
-            <button class="edit-icon" onclick="toggleEdit('password')">✏️</button>
-          </div>
-        </div>
-        <div id="edit-password" class="edit-field hidden">
-          <div class="password-wrapper">
-            <input type="password" id="newPassword" class="account-input" placeholder="New Password" />
-            <button class="eye-button" onclick="togglePasswordVisibility('newPassword', this)">👁️</button>
-          </div>
-          <div class="password-wrapper">
-            <input type="password" id="confirmPassword" class="account-input" placeholder="Confirm new Password" />
-            <button class="eye-button" onclick="togglePasswordVisibility('confirmPassword', this)">👁️</button>
-          </div>
-        </div>
-      </div>
-
-      <hr />
-      <button class="account-button account-button-account" onclick="updateAccount()">Safe Changes</button>
+  <!-- Info Section -->
+  <div id="tab-info" class="account-section active">
+    <div class="account-option" onclick="toggleSubmenu(this)">
+      <span>Username</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="submenu hidden">
+      <input type="text" placeholder="New Username">
+      <button>Save</button>
     </div>
 
-    <!-- Box 2: Einstellungen -->
-    <div class="account-box box-settings">
-      <h2 class="account-title account-title-settings">⚙️ Settings</h2>
-
-      <label class="toggle-label">
-        <input type="checkbox" id="newsletterToggle" />
-        I want to be part of the journey and get informed about changes and updates.
-      </label>
-
-      <label class="toggle-label">
-        <input type="checkbox" id="privacyToggle" />
-        Change privacy settings.
-      </label>
-
-      <hr />
-      <button class="account-button account-button-settings" onclick="saveSettings()">Safe Settings</button>
+    <div class="account-option" onclick="toggleSubmenu(this)">
+      <span>Email</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="submenu hidden">
+      <input type="email" placeholder="New Email">
+      <button>Save</button>
     </div>
 
+    <div class="account-option" onclick="toggleSubmenu(this)">
+      <span>Password</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="submenu hidden">
+      <input type="password" placeholder="New Password">
+      <button>Save</button>
+    </div>
+
+    <div class="account-option" onclick="toggleSubmenu(this)">
+      <span>Privacy Settings</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="submenu hidden">
+      <label><input type="checkbox"> Privacy Consent</label>
+    </div>
+
+    <div class="account-option" onclick="toggleSubmenu(this)">
+      <span>Marketing Consent</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="submenu hidden">
+      <label><input type="checkbox"> Receive Updates</label>
+    </div>
+
+    <div class="account-option">
+      <span>Imprint</span>
+    </div>
+
+    <div class="account-option">
+      <span>Cookie Settings</span>
+    </div>
+
+    <div class="account-option delete">
+      <span>Delete Account</span>
+    </div>
+  </div>
+
+  <!-- Decks Section (initially hidden) -->
+  <div id="tab-decks" class="account-section hidden">
+    <p>Your saved decks will appear here.</p>
+  </div>
+
+  <!-- Other Section (initially hidden) -->
+  <div id="tab-other" class="account-section hidden">
+    <p>Other settings or features here.</p>
   </div>
 </main>
 

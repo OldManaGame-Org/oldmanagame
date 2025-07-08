@@ -22,251 +22,139 @@ body {
   align-items: center;
 }
 
-.account-top-nav {
+/* =========================
+   ACCOUNT NAVIGATION TABS
+========================= */
+
+.account-nav {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px;
   margin-bottom: 30px;
 }
 
-.account-top-nav button {
+.account-nav button {
   background: none;
   border: none;
-  color: #d3af61;
-  font-family: 'Morpheus', serif;
   font-size: 18px;
+  font-weight: bold;
+  color: #d3af61;
   cursor: pointer;
-  padding: 8px 12px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: background 0.3s;
 }
 
-.account-top-nav button:hover {
+.account-nav button:hover,
+.account-nav button.active {
+  background: rgba(211, 175, 97, 0.15);
+}
+
+
+/* =========================
+   INFO SECTION LIST
+========================= */
+
+.account-info-list {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(0,0,0,0.4);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.account-info-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.account-info-item:last-child {
+  border-bottom: none;
+}
+
+.account-info-item span {
+  font-size: 16px;
   color: #fff;
 }
 
-.account-box-container {
-  display: flex;
-  width: 100%;
-  max-width: 1200px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  background: rgba(0,0,0,0.6);
-}
-
-/* Linke Menüspalte */
-.account-menu {
-  width: 240px;
-  background: rgba(0,0,0,0.8);
-  padding: 20px;
-  border-right: 1px solid #444;
-}
-
-.account-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.account-menu li {
-  padding: 12px;
-  color: #eee;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.account-menu li:hover {
-  background: rgba(255,255,255,0.05);
-}
-
-/* Rechte Inhaltsfläche */
-.account-content {
-  flex: 1;
-  padding: 30px;
-  min-height: 300px;
-  color: #f0e8d2;
-}
-
-/* Beispiel für Unterpunkte */
-.account-content h2 {
-  font-family: 'Morpheus', serif;
-  font-size: 22px;
-  margin-bottom: 20px;
-}
-
-.account-content p {
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.account-box {
-  text-align: left;
-  flex: 1 1 45%;
-  background: rgba(0, 0, 0, 0) !important;
-  border-radius: 12px;
-  padding: 40px;
-  min-width: 320px;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-.account-input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
+.account-info-item button {
   background: none;
-  border: 1px solid #444;
-  border-radius: 8px;
-  color: #f0e8d2;
-  font-size: 16px;
-}
-
-.account-button {
-  padding: 12px;
-  font-weight: bold;
   border: none;
-  border-radius: 8px;
+  font-size: 18px;
+  color: #d3af61;
   cursor: pointer;
-  transition: background 0.3s;
-  color: rgb(81, 77, 77) !important;
-  background: linear-gradient(to right, #e9e8b3, #e1c53c) !important;
+  transform: rotate(0deg);
+  transition: transform 0.3s;
 }
 
-.account-button:hover {
-  background: linear-gradient(to right, #e1c53c, #e9e8b3) !important;
+.account-info-item button.active {
+  transform: rotate(90deg);
+}
+
+
+/* =========================
+   TOGGLE SLIDE CONTENT
+========================= */
+
+.account-slideout {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.account-slideout.open {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 12px;
+}
+
+.account-slideout input[type="text"],
+.account-slideout input[type="email"],
+.account-slideout input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: #222;
+  color: #fff;
+}
+
+.account-slideout button.save-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(to right, #e9e8b3, #e1c53c);
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.account-slideout button.save-btn:hover {
+  background: linear-gradient(to right, #e1c53c, #e9e8b3);
+}
+
+
+/* =========================
+   GENERAL STYLES
+========================= */
+
+.account-title-section {
+  text-align: center;
+  font-size: 28px;
+  color: #d3af61;
+  margin-bottom: 20px;
 }
 
 .hidden {
   display: none;
-}
-
-
-
-
-/* ========================
-   BOX: Mein Account (Links)
-======================== */
-.box-account .account-title-account {
-  font-size: 26px;
-  color: #2d291d;
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-.box-account .account-button-account {
-  width: 100%;
-  max-width: 220px;
-  margin-top: 20px;
-}
-
-/* Felder */
-.box-account .account-field {
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.box-account .field-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.box-account .label-cell {
-  width: 140px;
-  font-weight: bold;
-}
-
-.box-account .value-cell {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-width: 250px;
-}
-
-.box-account .edit-field {
-  margin-top: 10px;
-  margin-bottom: 16px;
-}
-
-.box-account .edit-icon {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  margin-left: 12px;
-  color: #2dd4bf;
-  transition: transform 0.2s;
-}
-
-.box-account .edit-icon:hover {
-  transform: scale(1.2);
-}
-
-/* Passwortfeld mit Sichtbarkeitstoggle */
-.box-account .password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.box-account .eye-button {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: #aaa;
-}
-
-.box-account .eye-button:hover {
-  color: #2dd4bf;
-}
-
-
-
-
-
-/* ========================
-   BOX: Einstellungen (Rechts)
-======================== */
-.box-settings .account-title-settings {
-  font-size: 26px;
-  color: #2d291d;
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-.box-settings .account-button-settings {
-  width: 100%;
-  max-width: 300px;
-  margin-top: 15%;
-  background: linear-gradient(to right, #d8cd69, #f6be3b);
-}
-
-.box-settings .account-button-settings:hover {
-  background: linear-gradient(to right, #3b82f6, #2dd4bf);
-}
-
-/* Toggle Checkboxen */
-.box-settings .toggle-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 16px;
-  margin-bottom: 16px;
-  cursor: pointer;
-}
-
-.box-settings .toggle-label input[type="checkbox"] {
-  transform: scale(1.3);
-  accent-color: #2dd4bf;
 }
 
 

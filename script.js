@@ -1225,10 +1225,6 @@ async function saveCurrentDeck() {
     if (updateError) {
       console.error("Failed to update deck:", updateError.message);
     } else {
-      openedDeckId = null;
-      currentDeck = [];
-      updateDeckDisplay();
-      // 🟢 Karten im Grid ausgrauen (nach Speichern)
       currentDeck.forEach(card => {
         const cardEl = document.querySelector(`.card[data-id="${card.ID}"]`);
         if (cardEl) {
@@ -1236,6 +1232,10 @@ async function saveCurrentDeck() {
           cardEl.style.pointerEvents = "none";
         }
       });
+
+      openedDeckId = null;
+      currentDeck = [];
+      updateDeckDisplay();
       showAnnouncement("Change saved.");
       loadSavedDecks();
     }
@@ -1270,9 +1270,16 @@ async function saveCurrentDeck() {
   if (saveError) {
     console.error("Failed to save deck:", saveError.message);
   } else {
-    alert("Deck saved successfully!");
+    showAnnouncement("Deck saved successfully!");
     currentDeck = [];
     updateDeckDisplay();
+    currentDeck.forEach(card => {
+      const cardEl = document.querySelector(`.card[data-id="${card.ID}"]`);
+      if (cardEl) {
+        cardEl.classList.add("disabled");
+        cardEl.style.pointerEvents = "none";
+      }
+    });
     loadSavedDecks();
   }
 }
