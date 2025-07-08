@@ -5,152 +5,137 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url('assets/images/freepik__upload__98550.jpeg') !important;
-  background-color: none;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: #130a04;
   font-family: sans-serif;
   color: #ffffff !important;
 }
 
+/* ==============================
+   Global Layout
+============================== */
+
 .account-main {
-  margin-top: 100px;
-  padding: 40px 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 100px auto;
+  padding: 40px;
+  color: #fff;
+  font-family: 'Morpheus', serif;
 }
+
+/* ==============================
+   Navigation Tabs
+============================== */
 
 .account-nav {
   display: flex;
-  gap: 40px;
-  margin-bottom: 30px;
-  border-bottom: 2px solid #d3af61;
+  gap: 50px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #aaa;
   padding-bottom: 12px;
-  font-size: 18px;
-}
-
-.account-nav span {
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 6px;
-}
-
-.account-nav span:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-/* === Account Tabs Navigation === */
-.account-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .account-tab {
-  padding: 10px 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  padding: 8px 16px;
   cursor: pointer;
-  font-size: 18px;
-  color: #e0d4b4;
-  position: relative;
+  border-bottom: 2px solid transparent;
 }
 
 .account-tab.active {
-  color: #d3af61;
-  font-weight: bold;
+  border-bottom: 1px solid #d3af6160;
+  color: #404040d1;
 }
 
-.account-tab.active::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background-color: #d3af61;
-  margin-top: 8px;
-  width: 100%;
+/* ==============================
+   Section General Styles
+============================== */
+
+.account-section {
+  margin-top: 40px;
 }
 
-
-/* === Info Section Box === */
-.account-info-section {
-  max-width: 700px;
-  margin: 0 auto;
-  background: rgba(0,0,0,0.4);
-  padding: 40px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #f5f0e6;
+.account-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
 }
 
-.account-info-section h3 {
-  font-size: 24px;
-  margin-bottom: 30px;
-  color: #d3af61;
-  text-align: left;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 10px;
+.account-option .arrow {
+  margin-left: 20px;
 }
 
+.account-option.delete {
+  color: #ff4f4f;
+}
 
-/* === Info Rows === */
-.account-info-row {
+/* ==============================
+   Submenus
+============================== */
+
+.submenu {
+  margin-left: 10px;
+  padding: 10px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.submenu input[type="text"],
+.submenu input[type="email"],
+.submenu input[type="password"] {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  max-width: 300px;
+}
+
+.submenu button {
+  width: 100px;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  background: #d3af61;
+  color: #333;
+  cursor: pointer;
+}
+
+.submenu button:hover {
+  background: #e4c97a;
+}
+
+.submenu label {
+  font-size: 15px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 22px;
-  font-size: 16px;
+  gap: 8px;
 }
 
-.account-info-label {
-  font-weight: bold;
-  font-size: 17px;
+/* ==============================
+   Responsive Basics
+============================== */
+
+@media (max-width: 768px) {
+  .account-nav {
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .account-option {
+    font-size: 16px;
+  }
+
+  .submenu input {
+    max-width: 100%;
+  }
 }
 
-.account-info-value {
-  flex: 1;
-  text-align: right;
-  margin-left: 20px;
-  word-break: break-all;
-}
-
-.account-info-row button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: 16px;
-  font-size: 16px;
-  color: #d3af61;
-  transition: transform 0.2s ease;
-}
-
-.account-info-row button:hover {
-  transform: scale(1.2);
-}
-
-
-/* === Slideout Edit Inputs (versteckt) === */
-.account-edit-slideout {
-  margin-top: 12px;
-  display: none;
-}
-
-.account-edit-slideout input {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(0,0,0,0.3);
-  color: #fff;
-}
-
-.account-edit-slideout.show {
-  display: block;
-}
 
 
 
