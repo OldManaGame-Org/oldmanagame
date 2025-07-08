@@ -55,10 +55,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  document.getElementById('acc-email').innerText = userData.email || '-';
-  document.getElementById('acc-username').innerText = userData.username || '-';
-  document.getElementById('newsletterToggle').checked = userData.newsletter || false;
-  document.getElementById('privacyToggle').checked = userData.privacy || false;
+  // Alte IDs auskommentiert, da nicht mehr benötigt
+  // document.getElementById('acc-email').innerText = userData.email || '-';
+  // document.getElementById('acc-username').innerText = userData.username || '-';
+  // document.getElementById('newsletterToggle').checked = userData.newsletter || false;
+  // document.getElementById('privacyToggle').checked = userData.privacy || false;
+
+  document.getElementById('current-email').innerText = userData.email || '-';
+  document.getElementById('current-username').innerText = userData.username || '-';
+  document.getElementById('privacy-checkbox').checked = userData.privacy || false;
+  document.getElementById('marketing-checkbox').checked = userData.marketing || false;
 });
 
 // Account-Daten ändern
@@ -66,10 +72,10 @@ async function updateAccount() {
   const userData = JSON.parse(localStorage.getItem('userData'));
   if (!userData) return;
 
-  const newEmail = document.getElementById('newEmail')?.value.trim();
+  const newEmail = document.getElementById('email-input')?.value.trim();
   const confirmEmail = document.getElementById('confirmEmail')?.value.trim();
-  const newUsername = document.getElementById('newUsername')?.value.trim();
-  const newPassword = document.getElementById('newPassword')?.value;
+  const newUsername = document.getElementById('username-input')?.value.trim();
+  const newPassword = document.getElementById('password-input')?.value;
   const confirmPassword = document.getElementById('confirmPassword')?.value;
 
   if (newEmail && newEmail === confirmEmail) {
@@ -104,12 +110,15 @@ async function saveSettings() {
   const userData = JSON.parse(localStorage.getItem('userData'));
   if (!userData) return;
 
-  const newsletter = document.getElementById('newsletterToggle').checked;
-  const privacy = document.getElementById('privacyToggle').checked;
+  // Alte IDs auskommentiert
+  // const newsletter = document.getElementById('newsletterToggle').checked;
+  // const privacy = document.getElementById('privacyToggle').checked;
+  const privacy = document.getElementById('privacy-checkbox').checked;
+  const marketing = document.getElementById('marketing-checkbox').checked;
 
   const { error } = await supabaseClient
     .from('profiles')
-    .update({ newsletter: newsletter, privacy: privacy })
+    .update({ privacy: privacy, marketing: marketing })
     .eq('id', userData.id);
 
   if (error) {
@@ -124,58 +133,5 @@ async function logout() {
   localStorage.removeItem("loggedInUser");
   localStorage.removeItem("userData");
   await supabaseClient.auth.signOut();
-  location.reload();
-}
-
-
-
-// Logout Nav Icon
-
-async function logout() {
-  localStorage.removeItem("loggedInUser");
-  localStorage.removeItem("userData");
-  await supabaseClient.auth.signOut();
   window.location.href = "index.html";  // Zurück zur Startseite oder Login
 }
-
-
-
-
-// Toggle Tabs
-function showTab(tabName) {
-  const tabs = document.querySelectorAll('.account-section');
-  const buttons = document.querySelectorAll('.account-nav button');
-
-  tabs.forEach(tab => {
-    tab.classList.add('hidden');
-  });
-
-  buttons.forEach(btn => {
-    btn.classList.remove('active');
-  });
-
-  document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-  const activeButton = Array.from(buttons).find(btn => btn.textContent.toLowerCase().includes(tabName));
-  if (activeButton) {
-    activeButton.classList.add('active');
-  }
-}
-
-// Toggle Submenu Slideout
-function toggleSubmenu(element) {
-  const submenu = element.nextElementSibling;
-  const arrow = element.querySelector('.arrow');
-
-  if (submenu.classList.contains('hidden')) {
-    submenu.classList.remove('hidden');
-    submenu.classList.add('open');
-    if (arrow) arrow.style.transform = 'rotate(90deg)';
-  } else {
-    submenu.classList.add('hidden');
-    submenu.classList.remove('open');
-    if (arrow) arrow.style.transform = 'rotate(0deg)';
-  }
-} 
-
-// Optional: Initialize first tab
-showTab('info');
