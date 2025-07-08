@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  word-break: break-word;
 }
 
 body {
@@ -11,6 +12,7 @@ body {
   background: #130a04;
   color: #f0e8d2;
   font-family: 'Morpheus', serif;
+  overflow-x: hidden;
 }
 
 html {
@@ -825,35 +827,43 @@ button.disabled {
 
 
 
-
+/* Filter-Bar Anpassungen */
 
 @media (max-width: 750px) {
-  .card-grid-container {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-
-    #filter-bar {
+  
+  #filter-bar {
     flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
     padding: 10px;
     z-index: 10;
   }
+  #filter-bar .search-input {
+    display: none;
+  }
+  #filter-bar .filter-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  #filter-bar .archetype-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
 
-  
   #class-cards,
   #neutral-cards {
     display: none;
   }
-    .desktop-only {
+  .desktop-only {
     display: none !important;
   }
 
   #mana-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-left: 2%;
-}
-
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-left: 2%;
+  }
 }
 
 
@@ -920,6 +930,46 @@ button.disabled {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+
+/* Smartphones – 2 Karten nebeneinander */
+@media (max-width: 600px) {
+  .card-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .card-grid-container .card {
+    width: 100%;
+    max-width: 140px;
+  }
+}
+
+/* Kleine Tablets – 3 Karten nebeneinander */
+@media (min-width: 601px) and (max-width: 900px) {
+  .card-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .card-grid-container .card {
+    width: 100%;
+    max-width: 160px;
+  }
+}
+
+/* Große Tablets – 4 Karten nebeneinander */
+@media (min-width: 901px) and (max-width: 1199px) {
+  .card-grid-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .card-grid-container .card {
+    width: 100%;
+    max-width: 200px;
+  }
 }
 
 
@@ -1287,14 +1337,6 @@ button.disabled {
 /* MEDIA */
 
 
-/* ===== Mobile (bis 750px) ===== */
-
-@media (max-width: 750px) {
-  .card-grid-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-}
 
 
 @media (max-width: 1200px) {
@@ -1302,16 +1344,6 @@ button.disabled {
     flex-direction: column;
     padding: 20px;
     gap: 20px;
-  }
-
-  .card-grid-wrapper {
-    width: 100%;
-    padding-left: 0;
-  }
-
-  .card-grid-container {
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
   }
 
 
@@ -1578,6 +1610,10 @@ button.disabled {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 60px 20px 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .archetype-grid {
@@ -1586,9 +1622,9 @@ button.disabled {
     flex-direction: column;
     gap: 35px;
     width: 100%;
-    margin: 0;
-    padding: 0;
-    max-width: none;
+    margin: 0 auto;
+    padding: 0 10px;
+    max-width: 500px;
     align-items: stretch;
   }
 
@@ -1596,13 +1632,15 @@ button.disabled {
     width: 100%;
     background: none;
     border: none;
-    padding: 0;
+    padding: 8px 12px;
+    box-sizing: border-box;
   }
 
   .archetype-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 8px;
   }
 
   .archetype-main {
@@ -1637,6 +1675,7 @@ button.disabled {
     color: #f0c674;
     padding: 4px 8px;
     flex-shrink: 0;
+    margin-left: auto;
   }
 
   .archetype-info {
@@ -1758,7 +1797,7 @@ button.disabled {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 85%;
+  width: 90%;
   height: 100%;
   color: #f5f0e6;
   border-left: 2px solid #d3af61;
@@ -1766,6 +1805,7 @@ button.disabled {
   transition: right 0.4s ease;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 
   /* 🔽 Bild als Hintergrund */
   background-image: url("assets/images/Features_Desktop.jpg"); /* Pfad anpassen */
@@ -1780,7 +1820,8 @@ button.disabled {
 
 .slideout-header {
   flex-shrink: 0;
-  padding: 16px;
+  padding: 12px 16px;
+  min-height: 50px;
   background-image: url('assets/images/stone_filterbar.png'); /* 🔁 Pfad anpassen */
   background-size: cover;
   background-position: center;
@@ -1806,28 +1847,32 @@ button.disabled {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 12px 16px;
+  min-height: 50px;
 }
 
 .slideout-header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
   color: #d3af61;
+  text-align: center;
+  flex: 1;
 }
 
 #close-slideout {
   all: unset;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 26px;
   color: #f5f0e6;
+  margin-left: auto;
 }
 
 
 #mobile-deck-content {
   position: relative;
   width: 100%;
-  padding-top: 120px;
-  padding-bottom: 120px;
+  padding-top: 80px;
+  padding-bottom: 80px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -1838,7 +1883,7 @@ button.disabled {
   display: block;
   margin-right: auto;
   margin-left: auto;
-  padding-top: 12%;
+  padding-top: 8%;
   width: 90%;
   max-width: 260px;
   height: auto;
@@ -1876,7 +1921,7 @@ button.disabled {
   margin-left: 8px;
   cursor: pointer;
   padding: 4px;
-  margin-right: 22%;
+  margin-right: auto;
 }
 
 .my-decks-btn img {
@@ -1972,25 +2017,6 @@ button.disabled {
   white-space: nowrap;
 }
 
-#saved-decks-container-mobile .deck-actions-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-}
-
-#saved-decks-container-mobile .deck-actions-row button {
-  flex: 0 0 auto;
-  min-width: 60px;
-  background: #2a1e0f13;
-  color: #f5f0e6;
-  border: 1px solid #d3af6190;
-  padding: 4px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-family: 'Morpheus', serif;
-  cursor: pointer;
-}
 
 #saved-decks-container-mobile .deck-preview {
   width: 50px;
@@ -2036,6 +2062,7 @@ button.disabled {
   font-family: 'Morpheus', serif;
   cursor: pointer;
 }
+
 
 /* Zeige das Ganze nur auf kleinen Screens */
 @media (max-width: 1200px) {
@@ -2105,4 +2132,5 @@ button.disabled {
   color: #999;
   line-height: 1.5;
 }
+
 
