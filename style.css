@@ -885,6 +885,7 @@ button.disabled {
 
 /* ===== Card Grid & Deck Section ===== */
 
+/* ===== Card Grid & Deck Section ===== */
 #main-layout {
   display: flex;
   gap: 40px;
@@ -935,6 +936,17 @@ button.disabled {
 
 /* Smartphones – 2 Karten nebeneinander */
 @media (max-width: 600px) {
+  #main-layout {
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .card-grid-wrapper {
+    width: 100%;
+    padding-left: 0;
+  }
+
   .card-grid-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
@@ -948,6 +960,17 @@ button.disabled {
 
 /* Kleine Tablets – 3 Karten nebeneinander */
 @media (min-width: 601px) and (max-width: 900px) {
+  #main-layout {
+    flex-direction: column;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .card-grid-wrapper {
+    width: 100%;
+    padding-left: 0;
+  }
+
   .card-grid-container {
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
@@ -961,6 +984,17 @@ button.disabled {
 
 /* Große Tablets – 4 Karten nebeneinander */
 @media (min-width: 901px) and (max-width: 1199px) {
+  #main-layout {
+    flex-direction: row;
+    padding: 32px;
+    gap: 32px;
+  }
+
+  .card-grid-wrapper {
+    width: 100%;
+    padding-left: 0;
+  }
+
   .card-grid-container {
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
