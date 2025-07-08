@@ -861,13 +861,14 @@ button.disabled {
   #mana-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 5px;
     margin-left: 2%;
   }
 
   #mana-buttons .img {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
+}
 }
 
 
@@ -1460,17 +1461,16 @@ button.disabled {
 }
 
 
-/* Mobile */
+
 /* Mobile: Mana Chart Button */
 #mobile-current-deck .mana-chart-btn {
-  margin-left: auto;
+  margin-left: 5px;
   margin-right: 5px;
   background: none;
   color: #f5f0e6;
   border: none;
   border-radius: 6px;
   padding: 5px 8px;
-  font-size: 14px;
   cursor: pointer;
 }
 
@@ -1891,7 +1891,7 @@ button.disabled {
 
 .slideout-header h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   color: #d3af61;
   text-align: center;
   flex: 1;
@@ -1954,9 +1954,7 @@ button.disabled {
 .my-decks-btn {
   background: none;
   border: none;
-  font-size: 20px;
-  color: #f0c674;
-  margin-right: 25px;
+  margin-right: 35px;
   cursor: pointer;
   padding: 4px;
   margin-right: auto;
