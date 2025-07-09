@@ -607,9 +607,8 @@ button.disabled {
 
 .mana-btn {
   position: relative;
-  display: flex;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   margin-top: 1%;
   background: none;
   border: none;
@@ -628,15 +627,13 @@ button.disabled {
   top: 2px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 22px;
-  letter-spacing: -1px;
   color: #d6d5d3;
+  font-size: 22px;
   font-family: 'Morpheus', serif;
   font-weight: bold;
   text-shadow: 5px 6px 12px #363333;
   pointer-events: none;
 }
-
 .mana-btn.wide span {
   font-size: 20px;
 }
@@ -1853,7 +1850,9 @@ button.disabled {
   top: 0;
   right: -100%;
   width: 90%;
-  height: 100%;
+  min-height: 600px;
+  max-height: 95vh;
+  height: auto;
   color: #f5f0e6;
   border-left: 2px solid #d3af61;
   z-index: 999;
@@ -1895,7 +1894,7 @@ button.disabled {
   overflow-y: auto;
   padding: 0 16px;
   box-sizing: border-box;
-  max-height: calc(100vh - 140px);
+  max-height: none;
   scroll-behavior: smooth;
 }
 
