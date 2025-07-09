@@ -1539,9 +1539,8 @@ button.disabled {
   justify-content: center;
   padding-top: 60px;
   z-index: 2000;
-  opacity: 0;
-  transition: opacity 0.5s ease;
 }
+
 
 
 .archetype-grid {
@@ -1856,6 +1855,9 @@ button.disabled {
   top: 5px;
   right: -100%;
   width: 90%;
+  min-height: 600px;
+  max-height: 90vh;
+  height: auto;
   color: #f5f0e6;
   border-left: 2px solid #d3af616a;
   border-bottom: 2px solid #d3af6148;
@@ -1866,9 +1868,6 @@ button.disabled {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  min-height: 600px;
-  max-height: 90vh;
-  height: auto;
 
   /*  Hintergrund */
   background-image: url("assets/images/Features_Desktop_edited.webp"); /* Pfad anpassen */
@@ -1903,7 +1902,7 @@ button.disabled {
   overflow-y: auto;
   padding: 0 16px;
   box-sizing: border-box;
-  
+  max-height: none;
   scroll-behavior: smooth;
 }
 
