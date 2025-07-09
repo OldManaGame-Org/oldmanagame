@@ -608,8 +608,8 @@ button.disabled {
 .mana-btn {
   position: relative;
   display: flex;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   margin-top: 1%;
   background: none;
   border: none;
@@ -628,12 +628,17 @@ button.disabled {
   top: 2px;
   left: 50%;
   transform: translateX(-50%);
+  font-size: 22px;
+  letter-spacing: -1px;
   color: #d6d5d3;
-  font-size: 25px;
   font-family: 'Morpheus', serif;
   font-weight: bold;
   text-shadow: 5px 6px 12px #363333;
   pointer-events: none;
+}
+
+.mana-btn.wide span {
+  font-size: 20px;
 }
 
 #filter-bar .mana-btn:hover {
