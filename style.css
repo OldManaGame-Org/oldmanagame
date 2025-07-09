@@ -634,9 +634,7 @@ button.disabled {
   text-shadow: 5px 6px 12px #363333;
   pointer-events: none;
 }
-.mana-btn.wide span {
-  font-size: 20px;
-}
+
 
 #filter-bar .mana-btn:hover {
   transform: scale(1.15);
