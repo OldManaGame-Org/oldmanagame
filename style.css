@@ -1529,7 +1529,6 @@ button.disabled {
 #archetype-overlay {
   position: fixed;
   inset: 0;
-  background-color: #000;
   background-image: url("assets/images/Features_Desktop_edited.webp");
   background-size: cover;
   background-position: center;
@@ -1856,7 +1855,7 @@ button.disabled {
   right: -100%;
   width: 90%;
   min-height: 600px;
-  max-height: 90vh;
+  max-height: 95vh;
   height: auto;
   color: #f5f0e6;
   border-left: 2px solid #d3af616a;
