@@ -608,8 +608,8 @@ button.disabled {
 .mana-btn {
   position: relative;
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   margin-top: 1%;
   background: none;
   border: none;
@@ -628,17 +628,13 @@ button.disabled {
   top: 2px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 22px;
   letter-spacing: -1px;
   color: #d6d5d3;
+  font-size: 22px;
   font-family: 'Morpheus', serif;
   font-weight: bold;
   text-shadow: 5px 6px 12px #363333;
   pointer-events: none;
-}
-
-.mana-btn.wide span {
-  font-size: 20px;
 }
 
 #filter-bar .mana-btn:hover {
@@ -1529,7 +1525,7 @@ button.disabled {
 #archetype-overlay {
   position: fixed;
   inset: 0;
-  background-image: url("assets/images/Features_Desktop_edited.webp");
+    background-image: url("assets/images/Features_Desktop_edited.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1539,8 +1535,6 @@ button.disabled {
   padding-top: 60px;
   z-index: 2000;
 }
-
-
 
 .archetype-grid {
   display: flex;
@@ -1854,9 +1848,7 @@ button.disabled {
   top: 5px;
   right: -100%;
   width: 90%;
-  min-height: 600px;
-  max-height: 95vh;
-  height: auto;
+  height: 98%;
   color: #f5f0e6;
   border-left: 2px solid #d3af616a;
   border-bottom: 2px solid #d3af6148;
@@ -1901,7 +1893,7 @@ button.disabled {
   overflow-y: auto;
   padding: 0 16px;
   box-sizing: border-box;
-  max-height: none;
+  max-height: calc(100vh - 140px);
   scroll-behavior: smooth;
 }
 
