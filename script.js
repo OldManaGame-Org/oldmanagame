@@ -1,5 +1,28 @@
+// Archetype overlay Fadein
+
+const overlay = document.getElementById('archetype-overlay');
+const img = new Image();
+img.src = 'assets/images/your-image.jpg';
+img.onload = () => {
+  overlay.classList.add('loaded');
+};
+
+
+// Current deck height calc
+
+function fixMobileViewport() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+window.addEventListener('resize', fixMobileViewport);
+window.addEventListener('orientationchange', fixMobileViewport);
+fixMobileViewport();
+
+
 
 // Supabase Client
+
 const supabaseUrl = 'https://duzgjnjivzbcyhecltui.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1emdqbmppdnpiY3loZWNsdHVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3ODgyNzgsImV4cCI6MjA2NzM2NDI3OH0.vwkSSBiufzea9PQ_sN2r0ET4xWQqmE8F54VTnBgpTsc';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);

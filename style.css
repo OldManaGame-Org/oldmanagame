@@ -1529,7 +1529,8 @@ button.disabled {
 #archetype-overlay {
   position: fixed;
   inset: 0;
-    background-image: url("assets/images/Features_Desktop_edited.webp");
+  background-color: #000;
+  background-image: url("assets/images/Features_Desktop_edited.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1538,6 +1539,12 @@ button.disabled {
   justify-content: center;
   padding-top: 60px;
   z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#archetype-overlay.loaded {
+  opacity: 1;
 }
 
 .archetype-grid {
@@ -1852,7 +1859,7 @@ button.disabled {
   top: 5px;
   right: -100%;
   width: 90%;
-  height: 98%;
+  height: calc(var(--vh, 1vh) * 100);
   color: #f5f0e6;
   border-left: 2px solid #d3af616a;
   border-bottom: 2px solid #d3af6148;
