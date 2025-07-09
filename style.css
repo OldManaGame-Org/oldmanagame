@@ -1312,7 +1312,7 @@ button.disabled {
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .deck-actions-row button {
