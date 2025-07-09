@@ -864,7 +864,6 @@ button.disabled {
 
 #mana-buttons {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;      /* Zentriert die Buttons */
   gap: 4px;
   padding: 8px;
@@ -1312,7 +1311,7 @@ button.disabled {
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .deck-actions-row button {
@@ -1523,7 +1522,7 @@ button.disabled {
 #archetype-overlay {
   position: fixed;
   inset: 0;
-    background-image: url("assets/images/Features_Desktop_edited.webp");
+    background-image: url("assets/images/Features_Desktop_edited.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1843,15 +1842,12 @@ button.disabled {
 /* ========== Slideout Panel ========== */
 #mobile-current-deck {
   position: fixed;
-  margin-top: 1%;
+  top: 0;
   right: -100%;
   width: 90%;
-  height: 98%;
+  height: 100%;
   color: #f5f0e6;
-  border-left: 2px solid #d3af616a;
-  border-bottom: 2px solid #d3af6148;
-  border-top: 2px solid #d3af6148;
-  border-radius: 8px;
+  border-left: 2px solid #d3af61;
   z-index: 999;
   transition: right 0.4s ease;
   display: flex;
@@ -1859,7 +1855,7 @@ button.disabled {
   box-sizing: border-box;
 
   /*  Hintergrund */
-  background-image: url("assets/images/Features_Desktop_edited.webp"); /* Pfad anpassen */
+  background-image: url("assets/images/Features_Desktop.jpg"); /* Pfad anpassen */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1898,6 +1894,7 @@ button.disabled {
 
 
 /* Header Slideout */
+
 
 
 #close-slideout {
