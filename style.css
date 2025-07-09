@@ -607,7 +607,6 @@ button.disabled {
 
 .mana-btn {
   position: relative;
-  display: flex;
   width: 35px;
   height: 35px;
   margin-top: 1%;
@@ -1524,8 +1523,7 @@ button.disabled {
 #archetype-overlay {
   position: fixed;
   inset: 0;
-  background-color: #000;
-  background-image: url("assets/images/Features_Desktop_edited.webp");
+    background-image: url("assets/images/Features_Desktop_edited.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1845,7 +1843,7 @@ button.disabled {
 /* ========== Slideout Panel ========== */
 #mobile-current-deck {
   position: fixed;
-  top: 5px;
+  margin-top: 1%;
   right: -100%;
   width: 90%;
   height: 98%;
