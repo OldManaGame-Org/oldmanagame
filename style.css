@@ -1543,9 +1543,6 @@ button.disabled {
   transition: opacity 0.5s ease;
 }
 
-#archetype-overlay.loaded {
-  opacity: 1;
-}
 
 .archetype-grid {
   display: flex;
