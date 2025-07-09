@@ -1524,7 +1524,8 @@ button.disabled {
 #archetype-overlay {
   position: fixed;
   inset: 0;
-    background-image: url("assets/images/Features_Desktop_edited.webp");
+  background-color: #000;
+  background-image: url("assets/images/Features_Desktop_edited.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
