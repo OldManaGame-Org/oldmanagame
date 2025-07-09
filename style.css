@@ -1843,13 +1843,14 @@ button.disabled {
 /* ========== Slideout Panel ========== */
 #mobile-current-deck {
   position: fixed;
-  top: 0;
+  top: 1%;
   right: -100%;
   width: 90%;
   height: 98%;
   color: #f5f0e6;
   border-left: 2px solid #d3af616a;
   border-bottom: 2px solid #d3af6148;
+  border-top: 2px solid #d3af6148;
   border-radius: 8px;
   z-index: 999;
   transition: right 0.4s ease;
