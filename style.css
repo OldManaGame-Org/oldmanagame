@@ -1848,7 +1848,9 @@ button.disabled {
   width: 90%;
   height: 98%;
   color: #f5f0e6;
-  border-left: 2px solid #d3af61;
+  border-left: 2px solid #d3af616a;
+  border-bottom: 2px solid #d3af6148;
+  border-radius: 8px;
   z-index: 999;
   transition: right 0.4s ease;
   display: flex;
