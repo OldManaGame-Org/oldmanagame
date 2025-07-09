@@ -628,9 +628,8 @@ button.disabled {
   top: 2px;
   left: 50%;
   transform: translateX(-50%);
-  letter-spacing: -1px;
   color: #d6d5d3;
-  font-size: 22px;
+  font-size: 25px;
   font-family: 'Morpheus', serif;
   font-weight: bold;
   text-shadow: 5px 6px 12px #363333;
