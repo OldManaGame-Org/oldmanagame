@@ -1525,7 +1525,7 @@ button.disabled {
   position: fixed;
   inset: 0;
   background-color: #000;
-  background-image: url("assets/images/Features_Desktop_edited.jpg");
+  background-image: url("assets/images/Features_Desktop_edited.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1864,7 +1864,7 @@ button.disabled {
   box-sizing: border-box;
 
   /*  Hintergrund */
-  background-image: url("assets/images/Features_Desktop.jpg"); /* Pfad anpassen */
+  background-image: url("assets/images/Features_Desktop_edited.webp"); /* Pfad anpassen */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
