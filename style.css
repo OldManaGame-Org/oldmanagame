@@ -772,6 +772,10 @@ button.disabled {
 
 
 
+
+
+
+
 /* ========== Mobile Filter Dropdown Styles ========== */
 
 #mobile-filter-panel {
@@ -1358,8 +1362,6 @@ button.disabled {
 
 
 
-
-
 #saved-decks-container .deck-entry:hover {
   background: none;
 }
@@ -1397,9 +1399,10 @@ button.disabled {
 }
 
 
-/* Mana Graph */
+/* Mana Graph Desktop */
 
-/* Desktop */
+
+
 #current-deck .mana-chart-btn {
   position: absolute;
   top: -13px;
@@ -1441,13 +1444,13 @@ button.disabled {
 }
 
 #mana-chart-slideout.open {
-  height: 260px; /* oder wie viel du brauchst */
+  height: 260px; 
   pointer-events: auto;
 }
 
 #mana-chart-slideout .slideout-inner {
   width: 100%;
-  background-image: url('assets/images/blog_parchment_bg.jpg'); /* 🔁 Pfad anpassen */
+  background-image: url('assets/images/blog_parchment_bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1466,6 +1469,7 @@ button.disabled {
 
 
 /* Mobile: Mana Chart Button */
+
 #mobile-current-deck .mana-chart-btn {
   margin-left: 5px;
   margin-right: 5px;
@@ -1833,6 +1837,9 @@ button.disabled {
   }
 }
 
+
+
+
 /* ========== Slideout Panel ========== */
 #mobile-current-deck {
   position: fixed;
@@ -1848,7 +1855,7 @@ button.disabled {
   flex-direction: column;
   box-sizing: border-box;
 
-  /* 🔽 Bild als Hintergrund */
+  /*  Hintergrund */
   background-image: url("assets/images/Features_Desktop.jpg"); /* Pfad anpassen */
   background-size: cover;
   background-position: center;
@@ -1867,7 +1874,12 @@ button.disabled {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: #f5f0e6; /* optional: Text lesbar halten */
+  color: #f5f0e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  min-height: 50px;
 }
 
 /* Kartenbereich darf scrollen */
@@ -1884,21 +1896,6 @@ button.disabled {
 
 /* Header Slideout */
 
-.slideout-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  min-height: 50px;
-}
-
-.slideout-header h2 {
-  margin: 0;
-  font-size: 16px;
-  color: #d3af61;
-  text-align: center;
-  flex: 1;
-}
 
 #close-slideout {
   all: unset;
@@ -1957,15 +1954,15 @@ button.disabled {
 .my-decks-btn {
   background: none;
   border: none;
-  margin-right: 35px;
+  padding-right: 35px;
   cursor: pointer;
   padding: 4px;
   margin-right: auto;
 }
 
 .my-decks-btn img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   filter: brightness(1.1);
 }
 
