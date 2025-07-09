@@ -1,11 +1,4 @@
-// Archetype overlay Fadein
 
-const overlay = document.getElementById('archetype-overlay');
-const img = new Image();
-img.src = 'assets/images/your-image.jpg';
-img.onload = () => {
-  overlay.classList.add('loaded');
-};
 
 
 // Current deck height calc
