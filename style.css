@@ -1861,7 +1861,7 @@ button.disabled {
   right: -100%;
   width: 90%;
   min-height: 600px;
-  max-height: 95vh;
+  max-height: 99vh;
   height: auto;
   color: #f5f0e6;
   border-left: 2px solid #d3af6161;
